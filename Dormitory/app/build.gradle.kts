@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.nhom18.myapplication"
+    namespace = "com.group18.dormitory"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.nhom18.myapplication"
+        applicationId = "com.group18.dormitory"
         minSdk = 28
         targetSdk = 33
         versionCode = 1

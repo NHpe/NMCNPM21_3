@@ -1,4 +1,4 @@
-package com.nhom18.myapplication;
+package com.nhom18.dormitory;
 
 import org.junit.Test;
 

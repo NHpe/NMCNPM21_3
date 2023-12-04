@@ -1,11 +1,10 @@
-package com.nhom18.myapplication.Adapter;
+package com.group18.dormitory.Adapter;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "CaroProject.db";

@@ -1,4 +1,4 @@
-package com.nhom18.myapplication;
+package com.group18.dormitory;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,4 +1,4 @@
-package com.nhom18.myapplication;
+package com.group18.dormitory;
 
 import android.os.Bundle;
 
@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.nhom18.myapplication.Adapter.MyDatabaseHelper;
+import com.group18.dormitory.Adapter.MyDatabaseHelper;
 
 public class SignInFragment extends Fragment {
 
