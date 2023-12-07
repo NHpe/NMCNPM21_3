@@ -13,17 +13,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.group18.dormitory.Adapter.MyDatabaseHelper;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.group18.dormitory.Adapter.DAOs;
 
 public class SignInFragment extends Fragment {
 
-    private EditText edtUsername;
-    private EditText edtPassword;
+
+    private TextInputLayout emailBox;
+    private TextInputEditText emailText;
+    private TextInputLayout passwordBox;
+    private TextInputEditText passwordText;
 
     private Button btnSignIn;
     private Button btnSignUp;
-
-    private MyDatabaseHelper myDatabaseHelper;
 
     public SignInFragment() {
         // Required empty public constructor
@@ -38,32 +41,32 @@ public class SignInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
-
-        myDatabaseHelper = new MyDatabaseHelper(getActivity());
-        btnSignIn = view.findViewById(R.id.btnSignIn);
-        btnSignUp = view.findViewById(R.id.btnSignUp);
-
-        edtUsername = view.findViewById(R.id.edtUsername);
-        edtPassword = view.findViewById(R.id.edtPassword);
-
+        initiateData(view);
+        //TODO forgot password, save password
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = edtUsername.getText().toString().trim();
-                String password = edtPassword.getText().toString().trim();
-                if(username.equals("")||password.equals(""))
-                    Toast.makeText(requireContext(), "All fields are mandatory", Toast.LENGTH_SHORT).show();
+                String username = emailText.getText().toString().trim();
+                String password = passwordText.getText().toString().trim();
+                if(username.equals("")||password.equals("")) {
+                    // DO NOTHING
+                }
                 else{
-                    Boolean checkCredentials = myDatabaseHelper.checkUsernamePassword(username,password);
-                    if(checkCredentials == true){
-                        Toast.makeText(requireContext(), "Login Successfully!", Toast.LENGTH_SHORT).show();
-                        NavController navController = Navigation.findNavController(v);
-                        //TODO go to next fragment
-//                        navController.navigate(R.id.);
-                    }else{
-                        Toast.makeText(requireContext(), "Invalid Credentials", Toast.LENGTH_SHORT).show();
-                    }
+                    DAOs.getInstance().signInWithEmailAndPassword(username, password, new DAOs.OnResultListener() {
+                        @Override
+                        public void onResult(Boolean result) {
+                            if(result) {
+                                Toast.makeText(requireContext(), "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                                //TODO do some work with FirebaseUser
+                                //TODO change fragment
+                                NavController navController = Navigation.findNavController(v);
+//                                navController.navigate(R.id.actio);
+                            }else{
+                                Toast.makeText(requireContext(), "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
 
             }
@@ -74,10 +77,50 @@ public class SignInFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 NavController navController = Navigation.findNavController(view);
-                //TODO go to sign up fragment
-//                        navController.navigate(R.id.);
+                navController.navigate(R.id.action_signInFragment_to_signUpFragment);
             }
         });
         return view;
     }
+
+    private void initiateData(View view) {
+        emailBox = view.findViewById(R.id.emailBox);
+        emailText = view.findViewById(R.id.emailText);
+        passwordBox = view.findViewById(R.id.passwordBox);
+        passwordText = view.findViewById(R.id.passwordText);
+
+        btnSignIn = view.findViewById(R.id.btnSignIn);
+        btnSignUp = view.findViewById(R.id.btnSignUp);
+
+        passwordText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    if(passwordText.getText().toString().isEmpty()) {
+                        passwordBox.setErrorEnabled(true);
+                        passwordBox.setError("Mật khẩu không được trống và phải có ít nhất 6 ký tự");
+                    } else {
+                        passwordBox.setErrorEnabled(false);
+                    }
+                }
+            }
+        });
+
+
+        emailText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    if(emailText.getText().toString().isEmpty()) {
+                        emailBox.setErrorEnabled(true);
+                        emailBox.setError("Không được để trống");
+                    } else {
+                        emailBox.setErrorEnabled(false);
+                    }
+                }
+            }
+        });
+
+    }
+
 }

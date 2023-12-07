@@ -1,11 +1,23 @@
 <resources>
     <string name="app_name">Dormitory</string>
-    <string name="username">Tên đăng nhập</string>
-    <string name="password">Mật khẩu</string>
-    <string name="save_password">Nhớ mật khẩu</string>
-    <string name="forgot_password">Quên mật khẩu?</string>
+
+
+<!--    Sign In Fragment-->
     <string name="sign_in">Đăng nhập</string>
+    <string name="sign_in_username">Email </string>
+    <string name="sign_in_password">Mật khẩu </string>
+    <string name="sign_in_save_password">Nhớ mật khẩu</string>
+    <string name="sign_in_forgot_password">Quên mật khẩu?</string>
+
+<!--    Sign Up Fragment    -->
     <string name="sign_up">Đăng ký</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_up_gender">Giới tính:</string>
+    <string name="sign_up_male">Nam</string>
+    <string name="sign_up_female">Nữ</string>
+    <string name="sign_up_full_name">Họ và tên</string>
+    <string name="sign_up_phone_number">Số điện thoại</string>
+    <string name="sign_up_citizenId">Căn cước công dân</string>
+    <string name="sign_up_email">Email</string>
+    <string name="sign_up_address">Quê quán</string>
+    <string name="sign_up_birthday">Ngày sinh</string>
 </resources>
