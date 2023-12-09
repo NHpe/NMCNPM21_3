@@ -13,6 +13,17 @@ public class UserInformation {
     public UserInformation() {
     }
 
+    public UserInformation(String _id, String _name, String _birthday, String _gender, String _email, String _phone, String _citizen, String _address) {
+        this.id = _id;
+        this.fullName = _name;
+        this.birthday = _birthday;
+        this.gender = _gender;
+        this.email = _email;
+        this.phoneNumber = _phone;
+        this.citizenId = _citizen;
+        this.address = _address;
+    }
+
     public String getId() {
         return id;
     }

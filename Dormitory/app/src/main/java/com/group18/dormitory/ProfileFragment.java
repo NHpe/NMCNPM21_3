@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.group18.dormitory.Model.UserInformation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,5 +61,11 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
+
+    // TODO : Tạo hàm để lấy dữ liệu người dùng từ database
+    public UserInformation getInformation() {
+        UserInformation user = new UserInformation();
+        return user;
     }
 }
