@@ -4,7 +4,7 @@ import com.group18.dormitory.Model.Date;
 
 public class Issue {
     private String id;
-    private String tilte;
+    private String title;
     private String message;
     private Date date;
 
@@ -16,9 +16,9 @@ public class Issue {
 
     public void setId(String id) {this.id = id;}
 
-    public String getTilte() {return tilte;}
+    public String getTitle() {return title;}
 
-    public void setTilte(String tilte) {this.tilte = tilte;}
+    public void setTilte(String tilte) {this.title = tilte;}
 
     public String getMessage() {return message;}
 

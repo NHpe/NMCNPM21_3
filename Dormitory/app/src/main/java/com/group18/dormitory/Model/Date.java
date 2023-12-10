@@ -9,6 +9,13 @@ public class Date {
 
     }
 
+    public Date(String date) {
+        String[] string_split = date.split("/");
+        day = Integer.parseInt(string_split[0]);
+        month = Integer.parseInt(string_split[1]);
+        year = Integer.parseInt(string_split[2]);
+    }
+
     public int getDay() {return day;}
 
     public void setDay(int day) {this.day = day; }
