@@ -1,6 +1,6 @@
 package com.group18.dormitory.Model;
 
-import com.group18.dormitory.Model.Date;
+import java.util.Date;
 
 public class Issue {
     private String id;
@@ -18,7 +18,7 @@ public class Issue {
 
     public String getTitle() {return title;}
 
-    public void setTilte(String tilte) {this.title = tilte;}
+    public void setTitle(String title) {this.title = title;}
 
     public String getMessage() {return message;}
 

@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.group18.dormitory" />
+                  <option name="mobileSdkAppId" value="1:820660043844:android:028edf35d69eed47cf3c11" />
+                  <option name="projectId" value="dormitory-group18" />
+                  <option name="projectNumber" value="820660043844" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

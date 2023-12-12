@@ -1,6 +1,7 @@
 package com.group18.dormitory.Model;
 
-import com.group18.dormitory.Model.Date;
+import java.util.Date;
+
 public class Message {
     private String senderID;
     private String receiverID;

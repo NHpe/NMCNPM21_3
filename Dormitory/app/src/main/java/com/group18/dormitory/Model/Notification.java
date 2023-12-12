@@ -1,9 +1,10 @@
 package com.group18.dormitory.Model;
 
-import com.group18.dormitory.Model.Date;
+import java.util.Date;
+
 public class Notification {
     private String id;
-    private String tilte;
+    private String title;
     private String message;
     private Date date;
 
@@ -15,9 +16,9 @@ public class Notification {
 
     public void setId(String id) {this.id = id;}
 
-    public String getTilte() {return tilte;}
+    public String getTitle() {return title;}
 
-    public void setTilte(String tilte) {this.tilte = tilte;}
+    public void setTilte(String title) {this.title = title;}
 
     public String getMessage() {return message;}
 

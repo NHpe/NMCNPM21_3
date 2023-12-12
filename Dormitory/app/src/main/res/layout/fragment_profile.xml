@@ -20,42 +20,49 @@
             android:text="Họ và tên : "/>
 
         <TextView
+            android:id="@+id/idText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="ID : "/>
 
         <TextView
+            android:id="@+id/birthdayText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="Ngày sinh : "/>
 
         <TextView
+            android:id="@+id/genderText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="Giới tính : "/>
 
         <TextView
+            android:id="@+id/emailText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="Email : "/>
 
         <TextView
+            android:id="@+id/phoneNumberText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="Số điện thoại : "/>
 
         <TextView
+            android:id="@+id/citizenIdText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="Số căn cước công dân : "/>
 
         <TextView
+            android:id="@+id/addressText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
