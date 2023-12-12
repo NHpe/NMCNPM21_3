@@ -1,6 +1,9 @@
 package com.group18.dormitory.Model;
 
+import com.group18.dormitory.Adapter.DAOs;
+
 public class UserInformation {
+    private static UserInformation instance;
     private String id;
     private String fullName;
     private String birthday;
@@ -11,6 +14,13 @@ public class UserInformation {
     private String address;
 
     public UserInformation() {
+    }
+
+    public static UserInformation getInstance() {
+        if(instance == null) {
+            instance = new UserInformation();
+        }
+        return instance;
     }
 
     public UserInformation(String _id, String _name, String _birthday, String _gender, String _email, String _phone, String _citizen, String _address) {

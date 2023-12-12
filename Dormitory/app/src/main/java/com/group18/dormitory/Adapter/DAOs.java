@@ -1,15 +1,8 @@
 package com.group18.dormitory.Adapter;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +16,8 @@ public class DAOs {
     private FirebaseAuth auth;
     private FirebaseFirestore db;
     String UserID;
+
+    UserInformation userInformation;
 
 
 
@@ -51,8 +46,9 @@ public class DAOs {
     }
 
     public UserInformation getUser() {
-        DocumentReference documentReference = db.collection("UserInformation").document("y1z2eRMeaeujfBAGVumf");
-        UserInformation user = new UserInformation();
+        // Thay Test thành UserID để lấy dữ liệu khác
+        // UserID sẽ có khi có tài khoản đăng nhập - chắc thế
+        DocumentReference documentReference = db.collection("UserInformation").document("Test");
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -68,14 +64,15 @@ public class DAOs {
                         String citizendId = document.getString("citizenId");
                         String address = document.getString("address");
 
-                        user.setId(id);
-                        user.setFullName(fullName);
-                        user.setBirthday(birthday);
-                        user.setGender(gender);
-                        user.setEmail(email);
-                        user.setPhoneNumber(phoneNumber);
-                        user.setCitizenId(citizendId);
-                        user.setAddress(address);
+                        userInformation.setId(id);
+                        userInformation.setFullName(fullName);
+                        userInformation.setBirthday(birthday);
+                        userInformation.setGender(gender);
+                        userInformation.setEmail(email);
+                        userInformation.setPhoneNumber(phoneNumber);
+                        userInformation.setCitizenId(citizendId);
+                        userInformation.setAddress(address);
+
                     } else {
 
                     }
@@ -84,7 +81,7 @@ public class DAOs {
                 }
             }
         });
-        return user;
+        return userInformation;
     }
 
     public interface OnResultListener {
@@ -96,6 +93,7 @@ public class DAOs {
     private DAOs() {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        userInformation = UserInformation.getInstance();
         //UserID = auth.getCurrentUser().getUid();
     }
     public static DAOs getInstance() {
