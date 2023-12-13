@@ -16,57 +16,49 @@
             android:id="@+id/fullNameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Họ và tên : "/>
+            android:textAlignment="center"/>
 
         <TextView
             android:id="@+id/idText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="ID : "/>
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/birthdayText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Ngày sinh : "/>
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/genderText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Giới tính : "/>
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/emailText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Email : "/>
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/phoneNumberText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Số điện thoại : "/>
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/citizenIdText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Số căn cước công dân : "/>
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/addressText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Địa chỉ thưởng trú : "/>
+            android:textAlignment="center" />
 
     </LinearLayout>
 

@@ -1,14 +1,25 @@
 package com.group18.dormitory.Model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Room {
+    private static Room instance;
     private String id;
     private String type;
     private float cost;
     private String condition;
-    private String[] furniture;
+    private Map<String, Integer> furniture;
+
+    public static Room getInstance() {
+        if(instance == null) {
+            instance = new Room();
+        }
+        return instance;
+    }
 
     public Room() {
-
+        furniture = new HashMap<String, Integer>();
     }
 
     public String getId() {return id;}
@@ -27,7 +38,15 @@ public class Room {
 
     public void setCondition(String condition) {this.condition = condition;}
 
-    public String[] getFurniture() {return furniture;}
+    public Map<String, Integer> getFurniture() {return furniture;}
 
-    public void setFurniture(String[] furniture) {this.furniture = furniture;}
+    public void setFurniture(Map<String, Integer> furniture) {this.furniture = furniture;}
+
+    public void addFurniture(String str, Integer integer) {
+        furniture.put(str, integer);
+    }
+
+    public void removeFurniture(String str) {
+        furniture.remove(str);
+    }
 }

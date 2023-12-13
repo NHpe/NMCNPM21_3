@@ -27,6 +27,7 @@
             android:text="Danh sách ID sinh viên  : "/>
 
         <TextView
+            android:id="@+id/roomIDText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -34,6 +35,7 @@
             android:text="ID phòng : "/>
 
         <TextView
+            android:id="@+id/dateStartText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -41,6 +43,7 @@
             android:text="Ngày bắt đầu : "/>
 
         <TextView
+            android:id="@+id/dateEndText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -48,6 +51,7 @@
             android:text="Ngày kết thúc : "/>
 
         <TextView
+            android:id="@+id/costText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -55,6 +59,7 @@
             android:text="Tiền thuê phòng : "/>
 
         <TextView
+            android:id="@+id/electricText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -62,6 +67,7 @@
             android:text="Tiền điện : "/>
 
         <TextView
+            android:id="@+id/waterText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -69,6 +75,7 @@
             android:text="Tiền nước : "/>
 
         <TextView
+            android:id="@+id/serviceText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
@@ -76,6 +83,7 @@
             android:text="Chi phí dịch vụ : "/>
 
         <TextView
+            android:id="@+id/summaryText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"

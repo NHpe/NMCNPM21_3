@@ -15,7 +15,7 @@ import com.group18.dormitory.Model.UserInformation;
 
 public class ProfileFragment extends Fragment {
 
-    private UserInformation user;
+    private UserInformation user = DAOs.getInstance().getUser();
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -40,8 +40,6 @@ public class ProfileFragment extends Fragment {
         TextView phoneNumberView = view.findViewById(R.id.phoneNumberText);
         TextView citizenIdView = view.findViewById(R.id.citizenIdText);
         TextView addressView = view.findViewById(R.id.addressText);
-
-        user = DAOs.getInstance().getUser();
 
         idView.setText("ID : " + user.getId());
         fullNameView.setText("Họ và tên : " + user.getFullName());

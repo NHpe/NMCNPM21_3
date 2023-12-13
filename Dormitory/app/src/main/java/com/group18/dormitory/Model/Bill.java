@@ -3,6 +3,7 @@ package com.group18.dormitory.Model;
 import java.util.Date;
 
 public class Bill {
+    private static Bill instance;
     private String[] userID;
     private String roomID;
     private Date dateStart;
@@ -13,6 +14,13 @@ public class Bill {
 
     public Bill() {
 
+    }
+
+    public static Bill getInstance() {
+        if(instance == null) {
+            instance = new Bill();
+        }
+        return instance;
     }
 
     public String[] getUserID() {return userID;}
