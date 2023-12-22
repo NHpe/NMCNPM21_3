@@ -1,9 +1,16 @@
 package com.group18.dormitory.Model;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.group18.dormitory.Adapter.DAOs;
+
 import java.util.Date;
 
 public class Bill {
     private static Bill instance;
+    private FirebaseFirestore db = DAOs.getInstance().getDb();
     private String[] userID;
     private String roomID;
     private Date dateStart;
@@ -50,4 +57,15 @@ public class Bill {
     public float getService() {return service;}
 
     public void setService(float service) {this.service = service;}
+
+    public Bill getBill() {
+        DocumentReference documentReference = db.collection("Bill").document("0");
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                instance = documentSnapshot.toObject(Bill.class);
+            }
+        });
+        return instance;
+    }
 }

@@ -9,14 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.group18.dormitory.Adapter.DAOs;
 import com.group18.dormitory.Model.Bill;
 import com.group18.dormitory.Model.Room;
 
 import org.w3c.dom.Text;
 
 public class BillFragment extends Fragment {
-    private Bill bill = DAOs.getInstance().getBill();
+    private Bill bill = Bill.getInstance().getBill();
     private Room room = Room.getInstance();
 
     @Override

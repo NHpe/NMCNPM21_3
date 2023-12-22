@@ -24,7 +24,7 @@ public class RoomInformationFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private MaterialButton btnBill;
-    private Room room = DAOs.getInstance().getRoom();
+    private Room room = Room.getInstance().getRoom();
     public RoomInformationFragment() {
         // Required empty public constructor
     }

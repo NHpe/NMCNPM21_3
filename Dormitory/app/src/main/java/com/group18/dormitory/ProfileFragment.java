@@ -10,12 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.group18.dormitory.Adapter.DAOs;
 import com.group18.dormitory.Model.UserInformation;
 
 public class ProfileFragment extends Fragment {
 
-    private UserInformation user = DAOs.getInstance().getUser();
+    private UserInformation user = UserInformation.getInstance().getUser();
 
     public ProfileFragment() {
         // Required empty public constructor

@@ -1,10 +1,17 @@
 package com.group18.dormitory.Model;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.group18.dormitory.Adapter.DAOs;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Room {
     private static Room instance;
+    private FirebaseFirestore db = DAOs.getInstance().getDb();
     private String id;
     private String type;
     private float cost;
@@ -48,5 +55,16 @@ public class Room {
 
     public void removeFurniture(String str) {
         furniture.remove(str);
+    }
+
+    public Room getRoom() {
+        DocumentReference documentReference = db.collection("Room").document("0");
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                instance = documentSnapshot.toObject(Room.class);
+            }
+        });
+        return instance;
     }
 }

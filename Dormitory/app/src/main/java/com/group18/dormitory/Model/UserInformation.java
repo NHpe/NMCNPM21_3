@@ -1,5 +1,9 @@
 package com.group18.dormitory.Model;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.group18.dormitory.Adapter.DAOs;
 
 public class UserInformation {
@@ -12,6 +16,7 @@ public class UserInformation {
     private String phoneNumber;
     private String citizenId;
     private String address;
+    private FirebaseFirestore db = DAOs.getInstance().getDb();
 
     public UserInformation() {
     }
@@ -23,15 +28,18 @@ public class UserInformation {
         return instance;
     }
 
-    public UserInformation(String _id, String _name, String _birthday, String _gender, String _email, String _phone, String _citizen, String _address) {
-        this.id = _id;
-        this.fullName = _name;
-        this.birthday = _birthday;
-        this.gender = _gender;
-        this.email = _email;
-        this.phoneNumber = _phone;
-        this.citizenId = _citizen;
-        this.address = _address;
+    public UserInformation getUser() {
+        // Thay Test thành UserID để lấy dữ liệu khác
+        // UserID sẽ có khi có tài khoản đăng nhập - chắc thế
+        DocumentReference documentReference = db.collection("UserInformation").document("Test");
+
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                instance = documentSnapshot.toObject(UserInformation.class);
+            }
+        });
+        return instance;
     }
 
     public String getId() {

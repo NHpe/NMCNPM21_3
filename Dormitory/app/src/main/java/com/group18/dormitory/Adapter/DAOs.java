@@ -20,11 +20,8 @@ public class DAOs {
     private FirebaseAuth auth;
     private FirebaseFirestore db;
     String UserID;
-    UserInformation userInformation;
-    Room room;
-    Bill bill;
 
-
+    public FirebaseFirestore getDb () {return db;}
 
     public void createUserAccount(String email, String password) {
         auth.createUserWithEmailAndPassword(email, password)
@@ -50,42 +47,6 @@ public class DAOs {
                 });
     }
 
-    public UserInformation getUser() {
-        // Thay Test thành UserID để lấy dữ liệu khác
-        // UserID sẽ có khi có tài khoản đăng nhập - chắc thế
-        DocumentReference documentReference = db.collection("UserInformation").document("Test");
-
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                userInformation = documentSnapshot.toObject(UserInformation.class);
-            }
-        });
-        return userInformation;
-    }
-
-    public Room getRoom() {
-        DocumentReference documentReference = db.collection("Room").document("0");
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                room = documentSnapshot.toObject(Room.class);
-            }
-        });
-        return room;
-    }
-
-    public Bill getBill() {
-        DocumentReference documentReference = db.collection("Bill").document("0");
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                bill = documentSnapshot.toObject(Bill.class);
-            }
-        });
-        return bill;
-    }
-
     public interface OnResultListener {
         public void onResult(Boolean result);
     }
@@ -95,9 +56,6 @@ public class DAOs {
     private DAOs() {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        userInformation = UserInformation.getInstance();
-        room = Room.getInstance();
-        bill = Bill.getInstance();
         //UserID = auth.getCurrentUser().getUid();
     }
     public static DAOs getInstance() {
