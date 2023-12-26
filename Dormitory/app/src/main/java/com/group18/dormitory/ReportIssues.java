@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ReportIssues#} factory method to
@@ -18,11 +21,10 @@ import android.widget.Toast;
  */
 public class ReportIssues extends Fragment {
     // TODO: Rename and change types of parameters
-    private EditText edtFullName;
-    private EditText edtID;
-    private EditText edtWhat;
-    private EditText edtHowLong;
-    private EditText edtWhere;
+    private TextInputLayout titleBox;
+    private TextInputEditText titleText;
+    private TextInputLayout descriptionBox;
+    private TextInputEditText descriptionText;
     private Button btnSubmit;
 
     public ReportIssues() {
@@ -38,24 +40,12 @@ public class ReportIssues extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_report_issues, container, false);
 
-        edtFullName = view.findViewById(R.id.edtFullName);
-        edtID = view.findViewById(R.id.edtID);
-        edtWhat = view.findViewById(R.id.edtWhat);
-        edtHowLong = view.findViewById(R.id.edtHowLong);
-        edtWhere = view.findViewById(R.id.edtWhere);
-
-        btnSubmit = view.findViewById(R.id.btnSubmit);
-
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = edtFullName.getText().toString().trim();
-                String id = edtID.getText().toString().trim();
-                String what = edtWhat.getText().toString().trim();
-                String howLong = edtHowLong.getText().toString().trim();
-                String where = edtWhere.getText().toString().trim();
-
-                if (name.equals("") || id.equals("") || what.equals("") || howLong.equals("") || where.equals("")) {
+                String title = titleText.getText().toString().trim();
+                String description = descriptionText.getText().toString().trim();
+                if (title.equals("") || description.equals("")) {
                     Toast.makeText(requireContext(), "All fields are mandatory", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -64,5 +54,42 @@ public class ReportIssues extends Fragment {
             }
         });
         return view;
+    }
+
+    private void initiateData(View view) {
+        titleBox = view.findViewById(R.id.titleBox);
+        titleText = view.findViewById(R.id.titleText);
+        descriptionBox = view.findViewById(R.id.descriptionBox);
+        descriptionText = view.findViewById(R.id.decriptionText);
+
+        btnSubmit = view.findViewById(R.id.btnSubmit);
+
+        titleText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    if(titleText.getText().toString().isEmpty()) {
+                        titleBox.setErrorEnabled(true);
+                        titleBox.setError("Không được để trống");
+                    } else {
+                        titleBox.setErrorEnabled(false);
+                    }
+                }
+            }
+        });
+
+        descriptionText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    if(descriptionText.getText().toString().isEmpty()) {
+                        descriptionBox.setErrorEnabled(true);
+                        descriptionBox.setError("Không được để trống");
+                    } else {
+                        descriptionBox.setErrorEnabled(false);
+                    }
+                }
+            }
+        });
     }
 }

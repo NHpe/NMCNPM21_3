@@ -1,24 +1,27 @@
 package com.group18.dormitory.Adapter;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.group18.dormitory.Model.Bill;
+import com.group18.dormitory.Model.Room;
 import com.group18.dormitory.Model.UserInformation;
+
 
 public class DAOs {
 
     private FirebaseAuth auth;
+    private FirebaseFirestore db;
+    String UserID;
 
-
+    public FirebaseFirestore getDb () {return db;}
 
     public void createUserAccount(String email, String password) {
         auth.createUserWithEmailAndPassword(email, password)
@@ -44,11 +47,6 @@ public class DAOs {
                 });
     }
 
-
-
-
-
-
     public interface OnResultListener {
         public void onResult(Boolean result);
     }
@@ -57,6 +55,8 @@ public class DAOs {
     private static DAOs instance;
     private DAOs() {
         auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        //UserID = auth.getCurrentUser().getUid();
     }
     public static DAOs getInstance() {
         if(instance == null) {

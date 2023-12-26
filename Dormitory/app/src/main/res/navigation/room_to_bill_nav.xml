@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/room_to_bill_nav"
+    app:startDestination="@id/roomInformationFragment">
+
+    <fragment
+        android:id="@+id/billFragment"
+        android:name="com.group18.dormitory.BillFragment"
+        android:label="fragment_bill"
+        tools:layout="@layout/fragment_bill" />
+    <fragment
+        android:id="@+id/roomInformationFragment"
+        android:name="com.group18.dormitory.RoomInformationFragment"
+        android:label="fragment_room_information"
+        tools:layout="@layout/fragment_room_information" >
+        <action
+            android:id="@+id/action_roomInformationFragment_to_billFragment"
+            app:destination="@id/billFragment" />
+    </fragment>
+</navigation>
