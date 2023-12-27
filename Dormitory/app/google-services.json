@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "820660043844",
+    "project_id": "dormitory-group18",
+    "storage_bucket": "dormitory-group18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:820660043844:android:028edf35d69eed47cf3c11",
+        "android_client_info": {
+          "package_name": "com.group18.dormitory"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTA_s1EUAosXcCGu5FrCQAt7qvFN2rge0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

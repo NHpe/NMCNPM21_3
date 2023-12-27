@@ -3,13 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/signInFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.group18.dormitory.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_roomInformationFragment"
+            app:destination="@id/roomInformationFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/friendFragment"
         android:name="com.group18.dormitory.FriendFragment"
@@ -20,4 +28,59 @@
         android:name="com.group18.dormitory.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.group18.dormitory.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.group18.dormitory.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
+            app:popUpTo="@id/signUpFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/billFragment"
+        android:name="com.group18.dormitory.BillFragment"
+        android:label="fragment_bill"
+        tools:layout="@layout/fragment_bill" />
+    <fragment
+        android:id="@+id/roomInformationFragment"
+        android:name="com.group18.dormitory.RoomInformationFragment"
+        android:label="fragment_room_information"
+        tools:layout="@layout/fragment_room_information" >
+        <action
+            android:id="@+id/action_roomInformationFragment_to_billFragment"
+            app:destination="@id/billFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.group18.dormitory.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" >
+        <action
+            android:id="@+id/action_registrationFragment_to_registerInformationFragment"
+            app:destination="@id/registerInformationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerInformationFragment"
+        android:name="com.group18.dormitory.RegisterInformationFragment"
+        android:label="fragment_register_information"
+        tools:layout="@layout/fragment_register_information" />
 </navigation>

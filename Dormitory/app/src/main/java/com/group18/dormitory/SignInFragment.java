@@ -10,12 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.group18.dormitory.Adapter.DAOs;
+import com.group18.dormitory.Model.DAOs;
 
 public class SignInFragment extends Fragment {
 
@@ -61,7 +60,7 @@ public class SignInFragment extends Fragment {
                                 //TODO do some work with FirebaseUser
                                 //TODO change fragment
                                 NavController navController = Navigation.findNavController(v);
-//                                navController.navigate(R.id.actio);
+                                navController.navigate(R.id.action_signInFragment_to_homeFragment);
                             }else{
                                 Toast.makeText(requireContext(), "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
                             }

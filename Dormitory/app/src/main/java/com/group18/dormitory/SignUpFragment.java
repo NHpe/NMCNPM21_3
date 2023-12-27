@@ -17,8 +17,8 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.group18.dormitory.Model.DAOs;
 import com.group18.dormitory.Model.UserInformation;
-import com.group18.dormitory.R;
 
 public class SignUpFragment extends Fragment {
 
@@ -70,15 +70,25 @@ public class SignUpFragment extends Fragment {
                     && !newUser.getGender().isEmpty() && !newUser.getCitizenId().isEmpty()
                     && !newUser.getPhoneNumber().isEmpty() && !newUser.getEmail().isEmpty()
                     && !newUser.getAddress().isEmpty()) {
-                    //Todo Send request to admin
 
-                    new AlertDialog.Builder(requireContext()).setMessage("Đơn đăng ký đã được gửi đến quản lý," +
-                                    " xin vui lòng chờ thông báo qua email")
-                            .setPositiveButton("Đóng", null)
-                            .show();
+                    DAOs.getInstance().addObjectToFirestore("RegisterInformation", newUser, new DAOs.OnResultListener() {
+                        @Override
+                        public void onResult(Boolean result) {
+                            new AlertDialog.Builder(requireContext())
+                                    .setMessage("Đơn đăng ký đã được gửi đến quản lý," +
+                                        " xin vui lòng chờ thông báo qua email")
+                                    .setNegativeButton("Đóng", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            NavController navController = Navigation.findNavController(v);
+                                            navController.navigate(R.id.action_signUpFragment_to_signInFragment);
+                                        }
+                                    })
+                                    .setCancelable(false)
+                                    .show();
 
-                    NavController navController = Navigation.findNavController(v);
-                    navController.navigate(R.id.action_signUpFragment_to_signInFragment);
+                        }
+                    });
                 }
             }
         });

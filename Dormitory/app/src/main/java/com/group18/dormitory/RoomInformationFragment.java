@@ -9,15 +9,10 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
-import com.group18.dormitory.Adapter.DAOs;
 import com.group18.dormitory.Model.Room;
-
-import java.util.Map;
 
 public class RoomInformationFragment extends Fragment {
 

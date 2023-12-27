@@ -16,7 +16,7 @@
     <string name="sign_up_female">Nữ</string>
     <string name="sign_up_full_name">Họ và tên</string>
     <string name="sign_up_phone_number">Số điện thoại</string>
-    <string name="sign_up_citizenId">Căn cước công dân</string>
+    <string name="sign_up_citizenId">Mã căn cước công dân</string>
     <string name="sign_up_email">Email</string>
     <string name="sign_up_address">Quê quán</string>
     <string name="sign_up_birthday">Ngày sinh</string>

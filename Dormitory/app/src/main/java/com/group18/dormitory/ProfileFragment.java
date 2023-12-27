@@ -14,7 +14,7 @@ import com.group18.dormitory.Model.UserInformation;
 
 public class ProfileFragment extends Fragment {
 
-    private UserInformation user = UserInformation.getInstance().getUser();
+    private UserInformation user;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -30,6 +30,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        user = new UserInformation();
 
         TextView idView = view.findViewById(R.id.idText);
         TextView fullNameView = view.findViewById(R.id.fullNameText);

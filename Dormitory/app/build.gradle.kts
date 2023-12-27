@@ -46,4 +46,6 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
+    implementation("com.sun.mail:android-mail:1.6.0")
+    implementation("com.sun.mail:android-activation:1.6.0")
 }
