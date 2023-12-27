@@ -2,6 +2,7 @@ package com.group18.dormitory;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -10,7 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.group18.dormitory.Data.CustomProgressBar;
 import com.group18.dormitory.Data.MailSender;
+import com.group18.dormitory.Model.DAOs;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class HomeFragment extends Fragment {
@@ -18,7 +29,9 @@ public class HomeFragment extends Fragment {
 
 
     private View btnRegistration;
+    private View btnNotification;
     private View btnRoom;
+    private View container;
 
 
     public HomeFragment() {
@@ -43,12 +56,42 @@ public class HomeFragment extends Fragment {
     private void initiate(View view) {
         btnRegistration = view.findViewById(R.id.btnRegistration);
         btnRoom = view.findViewById(R.id.btnRoom);
+        btnNotification = view.findViewById(R.id.btnNotification);
+        container = view.findViewById(R.id.container);
+
+        CustomProgressBar.getInstance().show(requireContext());
+        container.setVisibility(View.GONE);
+
+        String userId = DAOs.getInstance().getCurrentUserId();
+        FirebaseFirestore.getInstance().collection("UserRoles").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()) {
+                    String userRole = task.getResult().get("role").toString();
+                    switch (userRole) {
+                        case "student": {
+                            btnRegistration.setVisibility(View.GONE);
+                        }
+                    }
+                    CustomProgressBar.getInstance().getDialog().dismiss();
+                    container.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NavController navController = Navigation.findNavController(v);
                 navController.navigate(R.id.action_homeFragment_to_registrationFragment);
+            }
+        });
+
+        btnNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(v);
+//                navController.navigate(R.id.action_homeFragment_to_registrationFragment);
             }
         });
 

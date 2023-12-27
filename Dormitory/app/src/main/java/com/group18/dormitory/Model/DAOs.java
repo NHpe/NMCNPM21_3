@@ -46,6 +46,10 @@ public class DAOs {
         db.collection(collection).document(id).set(data);
     }
 
+    public String getCurrentUserId() {
+        return auth.getUid();
+    }
+
     public void signInWithEmailAndPassword(String email, String password, OnResultListener listener) {
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

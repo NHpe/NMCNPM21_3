@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.group18.dormitory.Adapter.RegistrationAdapter;
+import com.group18.dormitory.Data.CustomProgressBar;
 import com.group18.dormitory.Model.DAOs;
 import com.group18.dormitory.Model.UserInformation;
 
@@ -26,7 +28,8 @@ import java.util.List;
 public class RegistrationFragment extends Fragment {
 
     private View btnCallBack;
-    private RecyclerView listView;
+    private View container;
+    private RecyclerView recyclerView;
 
     public RegistrationFragment() {
         // Required empty public constructor
@@ -49,12 +52,11 @@ public class RegistrationFragment extends Fragment {
 
     private void initiate(View view) {
         btnCallBack = view.findViewById(R.id.btnCallBack);
-        listView = view.findViewById(R.id.listView);
-        listView.setHasFixedSize(true);
-        listView.setAdapter(new RegistrationAdapter(requireContext(), new ArrayList<>()));
-        listView.setLayoutManager(new LinearLayoutManager(requireContext()));
-
-
+        recyclerView = view.findViewById(R.id.listView);
+        container = view.findViewById(R.id.container);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(new RegistrationAdapter(requireContext(), new ArrayList<>()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         DAOs.getInstance().getCollection("RegisterInformation", new DAOs.OnCompleteRetrieveDataListener() {
             @Override
@@ -64,7 +66,7 @@ public class RegistrationFragment extends Fragment {
                     items = new ArrayList<>();
                 }
                 RegistrationAdapter adapter = new RegistrationAdapter(requireContext(), items);
-                listView.setAdapter(adapter);
+                recyclerView.setAdapter(adapter);
             }
         });
 

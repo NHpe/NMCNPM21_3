@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:text="To Huu Hao"/>
+                android:text="Full Name"/>
 
             <View
                 android:layout_width="0dp"
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:text="Nam"/>
+                android:text="Gender"/>
 
             <View
                 android:layout_width="0dp"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="hao@gmail.com"/>
+            android:text="email@gmail.com"/>
 
     </LinearLayout>
 

@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.group18.dormitory.Data.CustomProgressBar;
 import com.group18.dormitory.Data.MailSender;
 import com.group18.dormitory.Model.DAOs;
 import com.group18.dormitory.Model.UserInformation;
@@ -119,7 +120,6 @@ public class RegistrationAdapter extends RecyclerView.Adapter<RegistrationAdapte
                                 items.size() - holder.getAdapterPosition());
                     }
                 });
-
             }
         });
     }

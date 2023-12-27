@@ -17,6 +17,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.group18.dormitory.Data.CustomProgressBar;
 import com.group18.dormitory.Model.DAOs;
 import com.group18.dormitory.Model.UserInformation;
 
@@ -70,10 +71,12 @@ public class SignUpFragment extends Fragment {
                     && !newUser.getGender().isEmpty() && !newUser.getCitizenId().isEmpty()
                     && !newUser.getPhoneNumber().isEmpty() && !newUser.getEmail().isEmpty()
                     && !newUser.getAddress().isEmpty()) {
+                    CustomProgressBar.getInstance().show(requireContext());
 
                     DAOs.getInstance().addObjectToFirestore("RegisterInformation", newUser, new DAOs.OnResultListener() {
                         @Override
                         public void onResult(Boolean result) {
+                            CustomProgressBar.getInstance().getDialog().dismiss();
                             new AlertDialog.Builder(requireContext())
                                     .setMessage("Đơn đăng ký đã được gửi đến quản lý," +
                                         " xin vui lòng chờ thông báo qua email")
