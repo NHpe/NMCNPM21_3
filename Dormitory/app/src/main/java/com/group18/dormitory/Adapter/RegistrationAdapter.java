@@ -32,6 +32,10 @@ public class RegistrationAdapter extends RecyclerView.Adapter<RegistrationAdapte
     private ArrayList<String> items;
     private Context context;
     private View view;
+    private OnItemClickListener onItemClickListener;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
 
 
     public RegistrationAdapter(Context context, ArrayList<String> items) {
@@ -43,12 +47,19 @@ public class RegistrationAdapter extends RecyclerView.Adapter<RegistrationAdapte
     @Override
     public RegistrationAdapter.RegistrationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         view = LayoutInflater.from(context).inflate(R.layout.custom_register_list_view,parent,false);
-
         return new RegistrationViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RegistrationViewHolder holder, int position) {
+        holder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(items.get(holder.getAdapterPosition()));
+                }
+            }
+        });
         DAOs.getInstance().retrieveDataFromDatabase("RegisterInformation", items.get(position), UserInformation.class, new DAOs.OnCompleteRetrieveDataListener() {
             @Override
             public <T> void onComplete(List<T> list) {
@@ -124,6 +135,10 @@ public class RegistrationAdapter extends RecyclerView.Adapter<RegistrationAdapte
         });
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(String registerId);
+    }
+
     @Override
     public int getItemCount() {
         return items.size();
@@ -131,6 +146,7 @@ public class RegistrationAdapter extends RecyclerView.Adapter<RegistrationAdapte
 
     public static class RegistrationViewHolder extends RecyclerView.ViewHolder{
 
+        View container;
         ImageButton btnAccept;
         ImageButton btnDecline;
         TextView txtName;
@@ -140,6 +156,7 @@ public class RegistrationAdapter extends RecyclerView.Adapter<RegistrationAdapte
         public RegistrationViewHolder(@NonNull View view) {
             super(view);
 
+            container = view.findViewById(R.id.container);
             txtName = view.findViewById(R.id.txtName);
             txtGender = view.findViewById(R.id.txtGender);
             txtEmail = view.findViewById(R.id.txtEmail);
@@ -148,5 +165,7 @@ public class RegistrationAdapter extends RecyclerView.Adapter<RegistrationAdapte
             btnDecline = view.findViewById(R.id.btnDecline);
         }
     }
+
+
 
 }

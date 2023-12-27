@@ -66,6 +66,15 @@ public class RegistrationFragment extends Fragment {
                     items = new ArrayList<>();
                 }
                 RegistrationAdapter adapter = new RegistrationAdapter(requireContext(), items);
+                adapter.setOnItemClickListener(new RegistrationAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(String registerId) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("RegisterId", registerId);
+                        NavController navController = Navigation.findNavController(view);
+                        navController.navigate(R.id.action_registrationFragment_to_registerInformationFragment, bundle);
+                    }
+                });
                 recyclerView.setAdapter(adapter);
             }
         });
