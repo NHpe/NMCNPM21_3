@@ -75,6 +75,14 @@ public class HomeFragment extends Fragment {
                     }
                     CustomProgressBar.getInstance().getDialog().dismiss();
                     container.setVisibility(View.VISIBLE);
+
+                    btnNotification.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            NavController navController = Navigation.findNavController(v);
+                            navController.navigate(R.id.action_homeFragment_to_notificationFragment);
+                        }
+                    });
                 }
             }
         });
@@ -84,14 +92,6 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 NavController navController = Navigation.findNavController(v);
                 navController.navigate(R.id.action_homeFragment_to_registrationFragment);
-            }
-        });
-
-        btnNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavController navController = Navigation.findNavController(v);
-//                navController.navigate(R.id.action_homeFragment_to_registrationFragment);
             }
         });
 

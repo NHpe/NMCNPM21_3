@@ -15,9 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.group18.dormitory.Data.CustomProgressBar;
@@ -26,7 +24,7 @@ import com.group18.dormitory.Model.UserInformation;
 
 import java.util.List;
 
-public class ChangeProfileInformationFragment extends Fragment {
+public class ProfileChangeInformationFragment extends Fragment {
     private TextView txtChangeType;
     private TextInputLayout firstBox;
     private TextInputLayout secondBox;
@@ -46,7 +44,7 @@ public class ChangeProfileInformationFragment extends Fragment {
     private View container;
 
 
-    public ChangeProfileInformationFragment() {
+    public ProfileChangeInformationFragment() {
         // Required empty public constructor
     }
 
@@ -58,7 +56,7 @@ public class ChangeProfileInformationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_change_profile_information, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile_change_information, container, false);
         initiate(view);
         return view;
     }

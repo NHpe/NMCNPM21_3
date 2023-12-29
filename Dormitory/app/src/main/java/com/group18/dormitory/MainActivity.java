@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.group18.dormitory.Model.DAOs;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,5 +43,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DAOs.getInstance().signOut();
     }
 }

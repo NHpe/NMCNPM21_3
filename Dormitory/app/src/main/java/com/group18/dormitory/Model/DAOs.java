@@ -117,6 +117,29 @@ public class DAOs {
         });
     }
 
+    public<T> void retrieveDataFromDatabase(String collection, Class<T> type, OnCompleteRetrieveDataListener listener) {
+        db.collection(collection).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if(!querySnapshot.isEmpty()) {
+                        List<T> result = new ArrayList<>();
+                        for (DocumentSnapshot documentSnapshot :
+                                querySnapshot) {
+                            result.add(documentSnapshot.toObject(type));
+                        }
+                        listener.onComplete(result);
+
+                    }else {
+                        listener.onComplete(null);
+                    }
+                }
+
+            }
+        });
+    }
+
     public void deleteDocument(String collection, String document) {
         db.collection(collection).document(document).delete();
     }

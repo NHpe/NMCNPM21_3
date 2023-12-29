@@ -5,11 +5,18 @@ import java.util.Date;
 public class Notification {
     private String id;
     private String title;
-    private String message;
+    private String content;
     private Date date;
 
     public Notification() {
 
+    }
+
+    public Notification(String title, String content) {
+        this.title = title;
+        this.content = content;
+        this.date = new java.util.Date();
+        this.id = String.valueOf(date);
     }
 
     public String getId() {return id;}
@@ -20,9 +27,9 @@ public class Notification {
 
     public void setTilte(String title) {this.title = title;}
 
-    public String getMessage() {return message;}
+    public String getContent() {return content;}
 
-    public void setMessage(String message) {this.message = message;}
+    public void setContent(String content) {this.content = content;}
 
     public Date getDate() {return date;}
 
