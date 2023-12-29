@@ -3,9 +3,13 @@ package com.group18.dormitory.Model;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -44,6 +48,15 @@ public class DAOs {
 
     public void addDataToDatabase(String collection, String id, Object data) {
         db.collection(collection).document(id).set(data);
+    }
+
+    public void addDataToDatabase(String collection, String id, Object data, OnResultListener l) {
+        db.collection(collection).document(id).set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                l.onResult(true);
+            }
+        });
     }
 
     public String getCurrentUserId() {
@@ -108,8 +121,40 @@ public class DAOs {
         db.collection(collection).document(document).delete();
     }
 
+    public void signOut() {
+        auth.signOut();
+    }
+
+    public void reAuthenticate(String password, OnResultListener listener) {
+        FirebaseUser user = auth.getCurrentUser();
+        AuthCredential credential = EmailAuthProvider
+                .getCredential(user.getEmail(), password);
+        user.reauthenticate(credential)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()) {
+                            listener.onResult(true);
+                        } else {
+                            listener.onResult(false);
+                        }
+                    }
+                });
+    }
+
+    public void changePassword(String password, OnResultListener l) {
+        FirebaseUser user = auth.getCurrentUser();
+        user.updatePassword(password)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        l.onResult(true);
+                    }
+                });
+    }
+
     public interface OnResultListener {
-        public void onResult(Boolean result);
+        public void onResult(boolean result);
     }
 
     public interface OnCompleteRetrieveDataListener {

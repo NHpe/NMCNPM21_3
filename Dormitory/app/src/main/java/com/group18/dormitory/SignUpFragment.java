@@ -75,7 +75,7 @@ public class SignUpFragment extends Fragment {
 
                     DAOs.getInstance().addObjectToFirestore("RegisterInformation", newUser, new DAOs.OnResultListener() {
                         @Override
-                        public void onResult(Boolean result) {
+                        public void onResult(boolean result) {
                             CustomProgressBar.getInstance().getDialog().dismiss();
                             new AlertDialog.Builder(requireContext())
                                     .setMessage("Đơn đăng ký đã được gửi đến quản lý," +

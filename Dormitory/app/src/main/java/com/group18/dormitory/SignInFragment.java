@@ -54,7 +54,7 @@ public class SignInFragment extends Fragment {
                 else{
                     DAOs.getInstance().signInWithEmailAndPassword(username, password, new DAOs.OnResultListener() {
                         @Override
-                        public void onResult(Boolean result) {
+                        public void onResult(boolean result) {
                             if(result) {
                                 Toast.makeText(requireContext(), "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                                 //TODO do some work with FirebaseUser
