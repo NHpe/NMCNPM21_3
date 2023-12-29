@@ -70,7 +70,11 @@
         android:id="@+id/billFragment"
         android:name="com.group18.dormitory.BillFragment"
         android:label="fragment_bill"
-        tools:layout="@layout/fragment_bill" />
+        tools:layout="@layout/fragment_bill" >
+        <action
+            android:id="@+id/action_billFragment_to_roomInformationFragment"
+            app:destination="@id/roomInformationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/roomInformationFragment"
         android:name="com.group18.dormitory.RoomInformationFragment"
@@ -79,6 +83,9 @@
         <action
             android:id="@+id/action_roomInformationFragment_to_billFragment"
             app:destination="@id/billFragment" />
+        <action
+            android:id="@+id/action_roomInformationFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
