@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/container"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".RoomInformationFragment">
 
@@ -37,94 +36,90 @@
     </androidx.cardview.widget.CardView>
 
     <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
+        android:layout_margin="10dp"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/roomIDText"
+            android:id="@+id/txtName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="10dp"
             android:layout_marginBottom="4dp"
-            android:text="ID phòng : "
+            android:layout_marginStart="10dp"
+            android:text="Tên phòng: "
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_gravity="start"
+            android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/typeText"
+            android:id="@+id/txtGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="10dp"
             android:layout_marginBottom="4dp"
-            android:text="Loại phòng : "
+            android:layout_marginStart="10dp"
+            android:text="Giới tính: "
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_gravity="start"
+            android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/costText"
+            android:id="@+id/txtMaxNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="10dp"
             android:layout_marginBottom="4dp"
-            android:text="Giá phòng : "
+            android:layout_marginStart="10dp"
+            android:text="Số lượng thành viên tối đa: "
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_gravity="start"
+            android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/conditionText"
+            android:id="@+id/txtCurrentNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="10dp"
             android:layout_marginBottom="4dp"
-            android:text="Tình trạng : "
+            android:layout_marginStart="10dp"
+            android:text="Số lượng thành viên hiện có: "
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_gravity="start"
+            android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/txtFurniture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="10dp"
             android:layout_marginBottom="4dp"
-            android:text="Danh sách nội thất : "
+            android:layout_marginStart="10dp"
+            android:text="Nội thất: "
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_gravity="start"
+            android:textStyle="bold"/>
 
-        <TableLayout
-            android:id="@+id/listFurniture"
+        <TextView
+            android:id="@+id/txtCost"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TableRow>
-                <TextView
-                    android:text="Tên nội thất"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textStyle="bold"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginStart="10dp"
+            android:text="Giá theo tháng: "
+            android:textSize="20sp"
+            android:layout_gravity="start"
+            android:textStyle="bold"/>
 
-                <TextView
-                    android:text="Số lượng"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textStyle="bold"/>
-            </TableRow>
+        <Button
+            android:id="@+id/btnRegistration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:textSize="20sp"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:text="Đăng ký"/>
 
-        </TableLayout>
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSubmit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_gravity="bottom"
-        android:textSize="24sp"
-        android:text="Hóa đơn" />
-
-</FrameLayout>
+</LinearLayout>

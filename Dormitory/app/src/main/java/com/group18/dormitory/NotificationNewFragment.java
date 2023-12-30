@@ -9,13 +9,11 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -24,7 +22,7 @@ import com.group18.dormitory.Data.CustomProgressBar;
 import com.group18.dormitory.Model.DAOs;
 import com.group18.dormitory.Model.Notification;
 
-public class NewNotificationFragment extends Fragment {
+public class NotificationNewFragment extends Fragment {
 
     private TextInputLayout boxTitle;
     private TextInputLayout boxContent;
@@ -34,7 +32,7 @@ public class NewNotificationFragment extends Fragment {
     private Button btnSend;
     private ImageButton btnCallBack;
 
-    public NewNotificationFragment() {
+    public NotificationNewFragment() {
         // Required empty public constructor
     }
 
@@ -46,7 +44,7 @@ public class NewNotificationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_new_notification, container, false);
+        View view = inflater.inflate(R.layout.fragment_notification_new, container, false);
         initiate(view);
         return view;
     }

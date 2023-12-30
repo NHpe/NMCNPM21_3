@@ -11,14 +11,14 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_roomInformationFragment"
-            app:destination="@id/roomInformationFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
         <action
             android:id="@+id/action_homeFragment_to_notificationFragment"
             app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_roomFragment"
+            app:destination="@id/roomFragment" />
     </fragment>
 
     <fragment
@@ -88,9 +88,6 @@
         <action
             android:id="@+id/action_roomInformationFragment_to_billFragment"
             app:destination="@id/billFragment" />
-        <action
-            android:id="@+id/action_roomInformationFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -136,13 +133,44 @@
         tools:layout="@layout/fragment_notification_detail" />
     <fragment
         android:id="@+id/newNotificationFragment"
-        android:name="com.group18.dormitory.NewNotificationFragment"
+        android:name="com.group18.dormitory.NotificationNewFragment"
         android:label="fragment_new_notification"
-        tools:layout="@layout/fragment_new_notification" >
+        tools:layout="@layout/fragment_notification_new" >
         <action
             android:id="@+id/action_newNotificationFragment_to_notificationFragment"
             app:destination="@id/notificationFragment"
             app:popUpTo="@id/notificationFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/roomFragment"
+        android:name="com.group18.dormitory.RoomFragment"
+        android:label="fragment_room"
+        tools:layout="@layout/fragment_room" >
+        <action
+            android:id="@+id/action_roomFragment_to_roomInformationFragment"
+            app:destination="@id/roomInformationFragment" />
+        <action
+            android:id="@+id/action_roomFragment_to_roomNewFragment"
+            app:destination="@id/roomNewFragment" />
+        <action
+            android:id="@+id/action_roomFragment_to_roomRegistrationFragment"
+            app:destination="@id/roomRegistrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/roomNewFragment"
+        android:name="com.group18.dormitory.RoomNewFragment"
+        android:label="fragment_room_new"
+        tools:layout="@layout/fragment_room_new" >
+        <action
+            android:id="@+id/action_roomNewFragment_to_roomFragment"
+            app:destination="@id/roomFragment"
+            app:popUpTo="@id/roomFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/roomRegistrationFragment"
+        android:name="com.group18.dormitory.RoomRegistrationFragment"
+        android:label="fragment_room_registration"
+        tools:layout="@layout/fragment_room_registration" />
 </navigation>

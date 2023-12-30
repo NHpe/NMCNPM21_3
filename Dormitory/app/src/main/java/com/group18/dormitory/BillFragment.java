@@ -17,8 +17,8 @@ import com.group18.dormitory.Model.Bill;
 import com.group18.dormitory.Model.Room;
 
 public class BillFragment extends Fragment {
-    private Bill bill = Bill.getInstance().getBill();
-    private Room room = Room.getInstance();
+    private Bill bill;
+    private Room room;
     private View btnBack;
     private View container;
 

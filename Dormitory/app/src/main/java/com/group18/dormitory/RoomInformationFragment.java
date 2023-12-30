@@ -1,7 +1,11 @@
 package com.group18.dormitory;
 
+import android.content.DialogInterface;
+import android.media.Image;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -9,17 +13,37 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.group18.dormitory.Data.CustomProgressBar;
+import com.group18.dormitory.Model.DAOs;
 import com.group18.dormitory.Model.Room;
+import com.group18.dormitory.Model.RoomRegistrationInformation;
+
+import java.util.List;
 
 public class RoomInformationFragment extends Fragment {
+    private ImageButton btnCallBack;
+    private View container;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private MaterialButton btnBill;
-    private Room room = Room.getInstance().getRoom();
+    private TextView txtName;
+    private TextView txtGender;
+    private TextView txtMaxNumber;
+    private TextView txtCurrentNumber;
+    private TextView txtFurniture;
+    private TextView txtCost;
+
+    private Button btnRegistration;
+
+
+
     public RoomInformationFragment() {
         // Required empty public constructor
     }
@@ -32,41 +56,83 @@ public class RoomInformationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_room_information, container, false);
+        initiate(view);
+        return view;
+    }
 
-        TextView idView = view.findViewById(R.id.roomIDText);
-        TextView typeView = view.findViewById(R.id.typeText);
-        TextView costView = view.findViewById(R.id.costText);
-        TextView conditionView = view.findViewById(R.id.conditionText);
-        //TableLayout listFurnitureView = view.findViewById(R.id.listFurniture);
+    private void initiate(View view) {
+        txtName = view.findViewById(R.id.txtName);
+        txtGender = view.findViewById(R.id.txtGender);
+        txtMaxNumber = view.findViewById(R.id.txtMaxNumber);
+        txtCurrentNumber = view.findViewById(R.id.txtCurrentNumber);
+        txtFurniture = view.findViewById(R.id.txtFurniture);
+        txtCost = view.findViewById(R.id.txtCost);
+        btnRegistration = view.findViewById(R.id.btnRegistration);
+        container = view.findViewById(R.id.container);
 
-        idView.setText("ID Phòng : " + room.getId());
-        typeView.setText("Loại phòng : " + room.getType());
-        costView.setText("Giá phòng : " + room.getCost());
-        conditionView.setText("Tình trạng : " + room.getCondition());
 
-        /*
-        Map<String, Integer> furnitures = room.getFurniture();
-        String[] nameFurniture = furnitures.keySet().toArray(new String[0]);
-        String[] numberFurniture = furnitures.values().toArray(new String[0]);
-
-        TableRow newRow;
-        TextView text1 = new TextView();
-        text1.setText(nameFurniture[0]);
-        TextView text2 = new TextView();
-        text2.setText(numberFurniture[0]);
-
-         */
-
-        btnBill.setOnClickListener(new View.OnClickListener() {
+        String roomId = getArguments().getString("RoomId");
+        String userId = DAOs.getInstance().getCurrentUserId();
+        container.setVisibility(View.GONE);
+        CustomProgressBar.getInstance().show(requireContext());
+        DAOs.getInstance().retrieveDataFromDatabase("Room", roomId, Room.class, new DAOs.OnCompleteRetrieveDataListener() {
             @Override
-            public void onClick(View view) {
-                NavController navController = Navigation.findNavController(view);
-                navController.navigate(R.id.action_roomInformationFragment_to_billFragment);
+            public <T> void onComplete(List<T> list) {
+                Room room = (Room) list.get(0);
+                txtName.setText(txtName.getText() + " " + room.getName());
+                txtGender.setText(txtGender.getText() + " " + room.getGender());
+                txtMaxNumber.setText(txtMaxNumber.getText() + " " + room.getMaxNumber());
+                txtCurrentNumber.setText(txtCurrentNumber.getText() + " " + room.getStudentId().size());
+                txtFurniture.setText(txtFurniture.getText() + " " + (room.isFurniture()?"Có":"Không"));
+                txtCost.setText(txtCost.getText() + " " + room.getCost());
+
+
+                FirebaseFirestore.getInstance().collection("UserRoles").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()) {
+                            String userRole = task.getResult().get("role").toString();
+                            switch (userRole) {
+                                case "admin": {
+                                    btnRegistration.setVisibility(View.GONE);
+                                }
+                            }
+                            CustomProgressBar.getInstance().getDialog().dismiss();
+                            container.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
             }
         });
 
-        return view;
+        btnRegistration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomProgressBar.getInstance().show(requireContext());
+                RoomRegistrationInformation rri = new RoomRegistrationInformation(roomId, userId);
+                DAOs.getInstance().addObjectToFirestore("RoomRegistrationInformation", rri, new DAOs.OnResultListener() {
+                    @Override
+                    public void onResult(boolean result) {
+                        CustomProgressBar.getInstance().getDialog().dismiss();
+                        new AlertDialog.Builder(requireContext())
+                                .setMessage("Gửi đăng ký thành công!")
+                                .setNegativeButton("Đóng", null)
+                                .setCancelable(false)
+                                .show();
+                    }
+                });
+            }
+        });
+
+        btnCallBack = view.findViewById(R.id.btnCallBack);
+        btnCallBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getOnBackPressedDispatcher().onBackPressed();
+            }
+        });
+
     }
+
 }

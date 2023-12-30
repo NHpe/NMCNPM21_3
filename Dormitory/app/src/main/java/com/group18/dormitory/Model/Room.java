@@ -5,65 +5,76 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Room {
-    private static Room instance;
-    private FirebaseFirestore db = DAOs.getInstance().getDb();
     private String id;
-    private String type;
+    private String name;
+    private int maxNumber;
+    private String gender;
+    private boolean furniture;
     private float cost;
-    private String condition;
-    private Map<String, Integer> furniture;
+    private ArrayList<String> studentId;
 
-    public static Room getInstance() {
-        if(instance == null) {
-            instance = new Room();
-        }
-        return instance;
+    public ArrayList<String> getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(ArrayList<String> studentId) {
+        this.studentId = studentId;
+    }
+
+    public float getCost() {
+        return cost;
+    }
+
+    public void setCost(float cost) {
+        this.cost = cost;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getMaxNumber() {
+        return maxNumber;
+    }
+
+    public void setMaxNumber(int maxNumber) {
+        this.maxNumber = maxNumber;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public boolean isFurniture() {
+        return furniture;
+    }
+
+    public void setFurniture(boolean furniture) {
+        this.furniture = furniture;
     }
 
     public Room() {
-        furniture = new HashMap<String, Integer>();
-    }
-
-    public String getId() {return id;}
-
-    public void setId(String id) {this.id = id;}
-
-    public String getType() {return type;}
-
-    public void setType(String type) {this.type = type;}
-
-    public float getCost() {return cost;}
-
-    public void setCost(float cost) {this.cost = cost;}
-
-    public String getCondition() {return condition;}
-
-    public void setCondition(String condition) {this.condition = condition;}
-
-    public Map<String, Integer> getFurniture() {return furniture;}
-
-    public void setFurniture(Map<String, Integer> furniture) {this.furniture = furniture;}
-
-    public void addFurniture(String str, Integer integer) {
-        furniture.put(str, integer);
-    }
-
-    public void removeFurniture(String str) {
-        furniture.remove(str);
-    }
-
-    public Room getRoom() {
-        DocumentReference documentReference = db.collection("Room").document("0");
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                instance = documentSnapshot.toObject(Room.class);
-            }
-        });
-        return instance;
+        this.studentId = new ArrayList<>();
     }
 }

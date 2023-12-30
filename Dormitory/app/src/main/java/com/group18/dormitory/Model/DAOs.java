@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -138,6 +139,80 @@ public class DAOs {
 
             }
         });
+    }
+
+    public<T> void getNotificationFromDb(String collection, Class<T> type, OnCompleteRetrieveDataListener listener) {
+        db.collection(collection).orderBy("date", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if(!querySnapshot.isEmpty()) {
+                        List<T> result = new ArrayList<>();
+                        for (DocumentSnapshot documentSnapshot :
+                                querySnapshot) {
+                            result.add(documentSnapshot.toObject(type));
+                        }
+                        listener.onComplete(result);
+
+                    }else {
+                        listener.onComplete(null);
+                    }
+                }
+
+            }
+        });
+    }
+
+    public<T> void getRoomWithSpecific(String collection, String gender, int maxNumber, boolean furniture, Class<T> type, OnCompleteRetrieveDataListener listener) {
+        db.collection(collection)
+                .whereEqualTo("gender", gender)
+                .whereEqualTo("maxNumber", maxNumber)
+                .whereEqualTo("furniture", furniture).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if(!querySnapshot.isEmpty()) {
+                        List<T> result = new ArrayList<>();
+                        for (DocumentSnapshot documentSnapshot :
+                                querySnapshot) {
+                            result.add(documentSnapshot.toObject(type));
+                        }
+                        listener.onComplete(result);
+
+                    }else {
+                        listener.onComplete(null);
+                    }
+                }
+
+            }
+        });
+    }
+
+    public void getRoomRegistrationId(String studentId, String roomId, OnCompleteRetrieveDataListener listener) {
+        db.collection("RoomRegistrationInformation")
+                .whereEqualTo("studentId", studentId)
+                .whereEqualTo("roomId", roomId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            if(!querySnapshot.isEmpty()) {
+                                List<String> result = new ArrayList<>();
+                                for (DocumentSnapshot documentSnapshot :
+                                        querySnapshot) {
+                                    result.add(documentSnapshot.getId());
+                                }
+                                listener.onComplete(result);
+
+                            }else {
+                                listener.onComplete(null);
+                            }
+                        }
+
+                    }
+                });
     }
 
     public void deleteDocument(String collection, String document) {

@@ -61,7 +61,7 @@ public class NotificationFragment extends Fragment {
         container.setVisibility(View.GONE);
         CustomProgressBar.getInstance().show(requireContext());
 
-        DAOs.getInstance().retrieveDataFromDatabase("Notification", Notification.class, new DAOs.OnCompleteRetrieveDataListener() {
+        DAOs.getInstance().getNotificationFromDb("Notification", Notification.class, new DAOs.OnCompleteRetrieveDataListener() {
             @Override
             public <T> void onComplete(List<T> list) {
 
