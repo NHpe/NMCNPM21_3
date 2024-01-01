@@ -36,14 +36,15 @@
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <TextView
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:text="Chức năng này chưa thực hiện cài đặt" />
+    </FrameLayout>
 
 </LinearLayout>

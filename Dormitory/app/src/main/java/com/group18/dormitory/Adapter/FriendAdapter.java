@@ -1,6 +1,7 @@
 package com.group18.dormitory.Adapter;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -31,18 +32,19 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.FriendView
 
     @NonNull
     @Override
-    public FriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+    public FriendAdapter.FriendViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        view = LayoutInflater.from(context).inflate(R.layout.custom_notification_recycler_view, parent, false);
+        return new FriendAdapter.FriendViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull FriendViewHolder holder, int position) {
-
+        holder.txtName.setText("0");
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return items.size();
     }
 
     public interface OnItemClickListener {
