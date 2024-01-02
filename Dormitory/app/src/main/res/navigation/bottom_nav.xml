@@ -19,6 +19,12 @@
         <action
             android:id="@+id/action_homeFragment_to_roomFragment"
             app:destination="@id/roomFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_reportIssues"
+            app:destination="@id/reportIssues" />
+        <action
+            android:id="@+id/action_homeFragment_to_issueFragment"
+            app:destination="@id/issueFragment" />
     </fragment>
 
     <fragment
@@ -173,4 +179,14 @@
         android:name="com.group18.dormitory.RoomRegistrationFragment"
         android:label="fragment_room_registration"
         tools:layout="@layout/fragment_room_registration" />
+    <fragment
+        android:id="@+id/issueFragment"
+        android:name="com.group18.dormitory.IssueFragment"
+        android:label="fragment_issue"
+        tools:layout="@layout/fragment_issue" />
+    <fragment
+        android:id="@+id/reportIssues"
+        android:name="com.group18.dormitory.ReportIssues"
+        android:label="fragment_report_issues"
+        tools:layout="@layout/fragment_report_issues" />
 </navigation>
