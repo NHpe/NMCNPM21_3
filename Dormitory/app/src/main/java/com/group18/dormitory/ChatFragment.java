@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -124,6 +126,16 @@ public class ChatFragment extends Fragment {
             }
         });
 
+        imgViewAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("ID", targetId);
+                NavController navController = Navigation.findNavController(view);
+                navController.navigate(R.id.action_chatFragment_to_userInformationFragment, bundle);
+            }
+        });
+
         btnCallBack = view.findViewById(R.id.btnCallBack);
         btnCallBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,12 +188,15 @@ public class ChatFragment extends Fragment {
                         if (querySnapshot != null) {
                             for (DocumentChange dc : querySnapshot.getDocumentChanges()) {
                                 switch (dc.getType()) {
-                                    case ADDED:
+                                    case ADDED:{
                                         // New message added
                                         Message msg = dc.getDocument().toObject(Message.class);
                                         msgArrayList.add(msg);
                                         adapter.notifyItemInserted(msgArrayList.size() - 1);
+                                        chatView.scrollToPosition(adapter.getItemCount() - 1);
                                         break;
+                                    }
+
                                     // Handle other cases if needed (MODIFIED, REMOVED)
                                 }
                             }

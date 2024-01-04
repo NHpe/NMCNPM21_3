@@ -1,6 +1,7 @@
 package com.group18.dormitory.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,17 +9,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.group18.dormitory.Model.DAOs;
 import com.group18.dormitory.Model.FriendList;
+import com.group18.dormitory.Model.Message;
 import com.group18.dormitory.Model.Room;
 import com.group18.dormitory.Model.UserInformation;
 import com.group18.dormitory.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class FriendAdapter  extends RecyclerView.Adapter<FriendAdapter.FriendViewHolder> {
 
@@ -53,10 +68,40 @@ public class FriendAdapter  extends RecyclerView.Adapter<FriendAdapter.FriendVie
             @Override
             public <T> void onComplete(List<T> list) {
                 UserInformation friendInfo = (UserInformation) list.get(0);
+                String targetId = friendInfo.getId();
+                String currentId = DAOs.getInstance().getCurrentUserId();
+                String chatRoomId = DAOs.getChatRoomID(currentId, targetId);
+
+                FirebaseFirestore.getInstance().collection("ChatRoom").document(chatRoomId).collection("chats")
+                        .orderBy("addtime", Query.Direction.ASCENDING)
+                        .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if(task.isSuccessful()) {
+                                            QuerySnapshot querySnapshot = task.getResult();
+                                            if(!querySnapshot.isEmpty()) {
+                                                Message msg = querySnapshot.getDocuments().get(0).toObject(Message.class);
+                                                if(msg.getUid().equals(currentId)) {
+                                                    holder.message.setText("Bạn: " + msg.getContent());
+                                                } else {
+                                                    holder.message.setText(msg.getContent());
+                                                }
+
+
+                                                Date date = msg.getAddtime().toDate();
+                                                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                                                String formattedTime = sdf.format(date);
+                                                holder.lastTime.setText(formattedTime);
+                                            } else {
+                                                holder.message.setVisibility(View.GONE);
+                                                holder.lastTime.setVisibility(View.GONE);
+                                            }
+                                        }
+                                    }
+                                });
 
                 holder.name.setText(friendInfo.getFullName());
-//        holder.message.setText(items.get(position).getGender());
-//        holder.lastTime.setText();
                 Glide.with(view).load(friendInfo.getAvatar()).error(R.drawable.ic_person).into(holder.avatar);
 
                 holder.container.setOnClickListener(new View.OnClickListener() {

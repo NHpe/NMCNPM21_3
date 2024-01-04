@@ -210,5 +210,9 @@
         android:id="@+id/chatFragment"
         android:name="com.group18.dormitory.ChatFragment"
         android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chatFragment_to_userInformationFragment"
+            app:destination="@id/userInformationFragment" />
+    </fragment>
 </navigation>
