@@ -19,6 +19,12 @@
         <action
             android:id="@+id/action_homeFragment_to_roomFragment"
             app:destination="@id/roomFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_reportIssues"
+            app:destination="@id/reportIssues" />
+        <action
+            android:id="@+id/action_homeFragment_to_issueFragment"
+            app:destination="@id/issueFragment" />
     </fragment>
 
     <fragment

@@ -22,15 +22,15 @@ import com.group18.dormitory.Model.DAOs;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class HomeFragment extends Fragment {
-
-
-
     private View btnRegistration;
     private View btnNotification;
     private View btnRoom;
+    private View btnReportIssue;
+    private View btnIssue;
     private View container;
 
 
@@ -57,6 +57,9 @@ public class HomeFragment extends Fragment {
         btnRegistration = view.findViewById(R.id.btnRegistration);
         btnRoom = view.findViewById(R.id.btnRoom);
         btnNotification = view.findViewById(R.id.btnNotification);
+        btnReportIssue = view.findViewById(R.id.btnReportIssue);
+        btnIssue = view.findViewById(R.id.btnIssue);
+
         container = view.findViewById(R.id.container);
 
         CustomProgressBar.getInstance().show(requireContext());
@@ -72,6 +75,11 @@ public class HomeFragment extends Fragment {
                         case "student": {
                             btnRegistration.setVisibility(View.GONE);
                         }
+                        /*
+                        case "manager": {
+                            btnReportIssue.setVisibility(View.GONE);
+                        }
+                         */
                     }
                     CustomProgressBar.getInstance().getDialog().dismiss();
                     container.setVisibility(View.VISIBLE);
@@ -102,6 +110,21 @@ public class HomeFragment extends Fragment {
                 navController.navigate(R.id.action_homeFragment_to_roomFragment);
             }
         });
-    }
 
+        btnReportIssue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.action_homeFragment_to_reportIssues);
+            }
+        });
+
+        btnIssue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.action_homeFragment_to_issueFragment);
+            }
+        });
+    }
 }
