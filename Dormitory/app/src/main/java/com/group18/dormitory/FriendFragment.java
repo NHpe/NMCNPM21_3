@@ -71,6 +71,15 @@ public class FriendFragment extends Fragment {
                 FriendList friendList = (FriendList) list.get(0);
                 FriendAdapter adapter = new FriendAdapter(requireContext(), friendList.getFriendsId());
                 recyclerView.setAdapter(adapter);
+                adapter.setOnItemClickListener(new FriendAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(String id) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("ID", id);
+                        NavController navController = Navigation.findNavController(view);
+                        navController.navigate(R.id.action_friendFragment_to_chatFragment, bundle);
+                    }
+                });
 
                 if(friendList.getFriendRequestId().size() != 0) {
                     btnFriendRequest.setImageResource(R.drawable.ic_friend_request);

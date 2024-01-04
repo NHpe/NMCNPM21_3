@@ -1,30 +1,45 @@
 package com.group18.dormitory.Model;
 
+import com.google.firebase.Timestamp;
+
 import java.util.Date;
 
 public class Message {
-    private String senderID;
-    private String receiverID;
-    private Date dateSend;
-    private String data;
-
-    public Message() {
-
+    private String uid;
+    private String content;
+    private Timestamp addtime;
+    public String getUid() {
+        return uid;
     }
 
-    public String getSenderID() {return senderID;}
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
-    public void setSenderID(String senderID) {this.senderID = senderID;}
+    public String getContent() {
+        return content;
+    }
 
-    public String getReceiverID() {return receiverID;}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-    public void setReceiverID(String receiverID) {this.receiverID = receiverID;}
+    public Timestamp getAddtime() {
+        return addtime;
+    }
 
-    public Date getDateSend() {return dateSend;}
+    public void setAddtime(Timestamp addtime) {
+        this.addtime = addtime;
+    }
 
-    public void setDateSend(Date date) {this.dateSend = date;}
+    public Message( String content,String uid, Timestamp addtime) {
+        this.uid = uid;
+        this.content = content;
+        this.addtime = addtime;
+    }
+    public Message(){
+        //default constructor
+    }
 
-    public String getData() {return data;}
-
-    public void setData(String data) {this.data = data;}
+// Constructor, getters, and setters
 }

@@ -59,6 +59,14 @@ public class FriendAdapter  extends RecyclerView.Adapter<FriendAdapter.FriendVie
 //        holder.lastTime.setText();
                 Glide.with(view).load(friendInfo.getAvatar()).error(R.drawable.ic_person).into(holder.avatar);
 
+                holder.container.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener != null) {
+                            onItemClickListener.onItemClick(items.get(holder.getAdapterPosition()));
+                        }
+                    }
+                });
             }
         });
     }

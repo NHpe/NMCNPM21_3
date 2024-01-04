@@ -12,6 +12,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -42,6 +43,21 @@ public class DAOs {
                         
                     }
                 });
+    }
+
+    public static DocumentReference getChatRoomRef(String chatroomID){
+        return FirebaseFirestore.getInstance().collection("ChatRoom").document(chatroomID);
+    }
+    public static CollectionReference getMsgRef(String chatroomID){
+        return getChatRoomRef(chatroomID).collection("chats");
+    }
+
+    public static String getChatRoomID(String userID1,String userID2){
+        if(userID1.hashCode()<userID2.hashCode()){
+            return userID1 + "_" + userID2;
+        }else {
+            return userID2 + "_" + userID1;
+        }
     }
 
     public void addObjectToFirestore(String col, Object obj, OnResultListener l) {
