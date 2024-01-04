@@ -1,5 +1,7 @@
 package com.group18.dormitory.Model;
 
+import android.net.Uri;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,6 +17,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +29,7 @@ public class DAOs {
 
     private FirebaseAuth auth;
     private FirebaseFirestore db;
+    private FirebaseStorage storage;
     String UserID;
 
     public FirebaseFirestore getDb () {return db;}
@@ -139,6 +145,24 @@ public class DAOs {
 
             }
         });
+    }
+
+    public void uploadUserAvatar(String userId, Uri imageUri, String imageType, OnResultUploadAvatarListener listener) {
+        String folder = "Avatar";
+        StorageReference storageRef = storage.getReference(folder).child(userId + "." + imageType);
+        storageRef.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        taskSnapshot.getMetadata().getReference().getDownloadUrl()
+                                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        listener.onResult(uri);
+                                    }
+                                });
+                    }
+                });
     }
 
 
@@ -260,11 +284,16 @@ public class DAOs {
         <T>void onComplete(List<T> list);
     }
 
+    public interface OnResultUploadAvatarListener {
+        void onResult(Uri Uri);
+    }
+
 
     private static DAOs instance;
     private DAOs() {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
         //UserID = auth.getCurrentUser().getUid();
     }
     public static DAOs getInstance() {

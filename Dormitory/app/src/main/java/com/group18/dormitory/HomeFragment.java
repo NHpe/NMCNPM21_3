@@ -110,21 +110,5 @@ public class HomeFragment extends Fragment {
                 navController.navigate(R.id.action_homeFragment_to_roomFragment);
             }
         });
-
-        btnReportIssue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavController navController = Navigation.findNavController(v);
-                navController.navigate(R.id.action_homeFragment_to_reportIssues);
-            }
-        });
-
-        btnIssue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavController navController = Navigation.findNavController(v);
-                navController.navigate(R.id.action_homeFragment_to_issueFragment);
-            }
-        });
     }
 }
