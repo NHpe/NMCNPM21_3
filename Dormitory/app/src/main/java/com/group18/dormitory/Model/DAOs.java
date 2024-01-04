@@ -141,6 +141,7 @@ public class DAOs {
         });
     }
 
+
     public<T> void getNotificationFromDb(String collection, Class<T> type, OnCompleteRetrieveDataListener listener) {
         db.collection(collection).orderBy("date", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

@@ -8,6 +8,12 @@
     android:id="@+id/container"
     tools:context=".ProfileFragment">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="20dp"
+        android:layout_gravity="center"/>
 
 
     <RelativeLayout

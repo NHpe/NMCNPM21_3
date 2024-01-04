@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.group18.dormitory.Model.DAOs;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,11 +45,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            navController.navigate(R.id.action_signInFragment_to_homeFragment);
+        }
     }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        DAOs.getInstance().signOut();
     }
 }

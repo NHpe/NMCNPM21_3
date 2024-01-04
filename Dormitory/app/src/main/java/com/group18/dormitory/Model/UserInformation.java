@@ -9,10 +9,18 @@ public class UserInformation {
     private String phoneNumber;
     private String citizenId;
     private String address;
+    private String avatar;
 
     public UserInformation() {
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
     public String getId() {
         return id;

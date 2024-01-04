@@ -14,12 +14,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.group18.dormitory.Data.CustomProgressBar;
 import com.group18.dormitory.Data.MailSender;
 import com.group18.dormitory.Model.DAOs;
+import com.group18.dormitory.Model.FriendList;
 import com.group18.dormitory.Model.UserInformation;
 import com.group18.dormitory.R;
 
@@ -72,37 +76,47 @@ public class RegistrationAdapter extends RecyclerView.Adapter<RegistrationAdapte
                     public void onClick(View v) {
                         String email = registerInformation.getEmail();
                         String password = email.substring(0, 5) + registerInformation.getCitizenId().substring(0, 5);
+                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                    @Override
+                                    public void onSuccess(AuthResult authResult) {
+
+                                        String subject = "Đăng ký tài khoản ký túc xá nhóm 18";
+                                        String text = "Chào " + registerInformation.getFullName() + ",\n" +
+                                                "Đơn đăng ký tạo tài khoản ký túc xá của bạn đã được chấp nhận.\n" +
+                                                "Vui lòng đăng nhập vào tài khoản bằng email của bạn với mật khẩu: " +
+                                                password + "\n" +
+                                                "\nTrân trọng ./.\n" +
+                                                "Admin";
+
+                                        MailSender.getInstance().send(registerInformation.getEmail(), subject, text);
+                                        registerInformation.setId(authResult.getUser().getUid());
+                                        DAOs.getInstance().addDataToDatabase("UserInformation", registerInformation.getId(), registerInformation);
+                                        Map<String, String> map = new HashMap<>();
+                                        map.put("role", "student");
+                                        DAOs.getInstance().addDataToDatabase("UserRoles", registerInformation.getId(), map);
+                                        DAOs.getInstance().addDataToDatabase("FriendList", registerInformation.getId(), new FriendList(registerInformation.getId()));
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        String subject = "Đăng ký tài khoản ký túc xá nhóm 18";
+                                        String text = "Chào " + registerInformation.getFullName() + ",\n" +
+                                                "Đơn đăng ký tạo tài khoản ký túc xá của bạn không được chấp nhận " +
+                                                "do tài khoản email của bạn đã tồn tại trên hệ thống, vui lòng " +
+                                                "tạo đơn đăng ký với 1 email mới. \n" +
+                                                "\nTrân trọng ./.\n" +
+                                                "Admin";
+
+                                        MailSender.getInstance().send(registerInformation.getEmail(), subject, text);
+                                    }
+                                })
                                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if(task.isSuccessful()) {
-                                            String subject = "Đăng ký tài khoản ký túc xá nhóm 18";
-                                            String text = "Chào " + registerInformation.getFullName() + ",\n" +
-                                                    "Đơn đăng ký tạo tài khoản ký túc xá của bạn đã được chấp nhận.\n" +
-                                                    "Vui lòng đăng nhập vào tài khoản bằng email của bạn với mật khẩu: " +
-                                                    password + "\n" +
-                                                    "\nTrân trọng ./.\n" +
-                                                    "Admin";
-
-                                            MailSender.getInstance().send(registerInformation.getEmail(), subject, text);
-                                            registerInformation.setId(task.getResult().getUser().getUid());
-                                            DAOs.getInstance().addDataToDatabase("UserInformation", registerInformation.getId(), registerInformation);
-                                            Map<String, String> map = new HashMap<>();
-                                            map.put("role", "student");
-                                            DAOs.getInstance().addDataToDatabase("UserRoles", registerInformation.getId(), map);
-                                        } else {
-                                            String subject = "Đăng ký tài khoản ký túc xá nhóm 18";
-                                            String text = "Chào " + registerInformation.getFullName() + ",\n" +
-                                                    "Đơn đăng ký tạo tài khoản ký túc xá của bạn đã được chấp nhận.\n" +
-                                                    "Tuy nhiên, tài khoản email của bạn đã tồn tại trên hệ thống, vui lòng" +
-                                                    "tạo đơn đăng ký với 1 email mới. \n" +
-                                                    "\nTrân trọng ./.\n" +
-                                                    "Admin";
-
-                                            MailSender.getInstance().send(registerInformation.getEmail(), subject, text);
-
-                                        }
+                                        FirebaseAuth.getInstance().updateCurrentUser(currentUser);
                                     }
                                 });
 

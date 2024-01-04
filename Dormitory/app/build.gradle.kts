@@ -48,4 +48,10 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.sun.mail:android-mail:1.6.0")
     implementation("com.sun.mail:android-activation:1.6.0")
+
+
+    //Circle image view
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+    //Load image from url
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }

@@ -14,11 +14,12 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.group18.dormitory.Data.CustomProgressBar;
 import com.group18.dormitory.Model.DAOs;
 
 public class SignInFragment extends Fragment {
 
-
+    private View container;
     private TextInputLayout emailBox;
     private TextInputEditText emailText;
     private TextInputLayout passwordBox;
@@ -52,9 +53,13 @@ public class SignInFragment extends Fragment {
                     // DO NOTHING
                 }
                 else{
+                    container.setVisibility(View.GONE);
+                    CustomProgressBar.getInstance().show(requireContext());
                     DAOs.getInstance().signInWithEmailAndPassword(username, password, new DAOs.OnResultListener() {
                         @Override
                         public void onResult(boolean result) {
+                            container.setVisibility(View.VISIBLE);
+                            CustomProgressBar.getInstance().getDialog().dismiss();
                             if(result) {
                                 Toast.makeText(requireContext(), "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                                 //TODO do some work with FirebaseUser
@@ -83,6 +88,7 @@ public class SignInFragment extends Fragment {
     }
 
     private void initiateData(View view) {
+        container = view.findViewById(R.id.container);
         emailBox = view.findViewById(R.id.emailBox);
         emailText = view.findViewById(R.id.emailText);
         passwordBox = view.findViewById(R.id.passwordBox);

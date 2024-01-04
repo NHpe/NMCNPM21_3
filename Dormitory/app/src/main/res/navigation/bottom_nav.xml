@@ -25,7 +25,14 @@
         android:id="@+id/friendFragment"
         android:name="com.group18.dormitory.FriendFragment"
         android:label="fragment_friend"
-        tools:layout="@layout/fragment_friend" />
+        tools:layout="@layout/fragment_friend" >
+        <action
+            android:id="@+id/action_friendFragment_to_friendFindFragment"
+            app:destination="@id/friendFindFragment" />
+        <action
+            android:id="@+id/action_friendFragment_to_friendRequestFragment"
+            app:destination="@id/friendRequestFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.group18.dormitory.ProfileFragment"
@@ -173,4 +180,27 @@
         android:name="com.group18.dormitory.RoomRegistrationFragment"
         android:label="fragment_room_registration"
         tools:layout="@layout/fragment_room_registration" />
+    <fragment
+        android:id="@+id/friendFindFragment"
+        android:name="com.group18.dormitory.FriendFindFragment"
+        android:label="fragment_friend_find"
+        tools:layout="@layout/fragment_friend_find" >
+        <action
+            android:id="@+id/action_friendFindFragment_to_userInformationFragment"
+            app:destination="@id/userInformationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userInformationFragment"
+        android:name="com.group18.dormitory.UserInformationFragment"
+        android:label="fragment_user_information"
+        tools:layout="@layout/fragment_user_information" />
+    <fragment
+        android:id="@+id/friendRequestFragment"
+        android:name="com.group18.dormitory.FriendRequestFragment"
+        android:label="fragment_friend_request"
+        tools:layout="@layout/fragment_friend_request" >
+        <action
+            android:id="@+id/action_friendRequestFragment_to_userInformationFragment"
+            app:destination="@id/userInformationFragment" />
+    </fragment>
 </navigation>
