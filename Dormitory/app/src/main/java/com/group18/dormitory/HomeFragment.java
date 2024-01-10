@@ -29,8 +29,8 @@ public class HomeFragment extends Fragment {
     private View btnRegistration;
     private View btnNotification;
     private View btnRoom;
-    private View btnReportIssue;
     private View btnIssue;
+    private View btnJob;
     private View container;
 
 
@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
         btnRegistration = view.findViewById(R.id.btnRegistration);
         btnRoom = view.findViewById(R.id.btnRoom);
         btnNotification = view.findViewById(R.id.btnNotification);
-        btnReportIssue = view.findViewById(R.id.btnReportIssue);
+        btnJob = view.findViewById(R.id.btnJob);
         btnIssue = view.findViewById(R.id.btnIssue);
 
         container = view.findViewById(R.id.container);
@@ -108,6 +108,14 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 NavController navController = Navigation.findNavController(v);
                 navController.navigate(R.id.action_homeFragment_to_roomFragment);
+            }
+        });
+
+        btnIssue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.action_homeFragment_to_issueFragment);
             }
         });
     }

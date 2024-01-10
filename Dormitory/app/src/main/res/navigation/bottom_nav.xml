@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_roomFragment"
             app:destination="@id/roomFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_issueFragment"
+            app:destination="@id/issueFragment" />
     </fragment>
 
     <fragment
@@ -215,4 +218,9 @@
             android:id="@+id/action_chatFragment_to_userInformationFragment"
             app:destination="@id/userInformationFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/issueFragment"
+        android:name="com.group18.dormitory.IssueFragment"
+        android:label="fragment_issue"
+        tools:layout="@layout/fragment_issue" />
 </navigation>

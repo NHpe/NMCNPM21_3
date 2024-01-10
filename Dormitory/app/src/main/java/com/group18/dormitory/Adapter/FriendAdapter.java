@@ -73,7 +73,7 @@ public class FriendAdapter  extends RecyclerView.Adapter<FriendAdapter.FriendVie
                 String chatRoomId = DAOs.getChatRoomID(currentId, targetId);
 
                 FirebaseFirestore.getInstance().collection("ChatRoom").document(chatRoomId).collection("chats")
-                        .orderBy("addtime", Query.Direction.ASCENDING)
+                        .orderBy("addtime", Query.Direction.DESCENDING)
                         .get()
                                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override
