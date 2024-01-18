@@ -130,7 +130,7 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:layout_gravity="center"
-                    android:text="Báo cáo sự cố"/>
+                    android:text="Sự cố"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

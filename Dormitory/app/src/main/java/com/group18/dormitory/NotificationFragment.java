@@ -92,6 +92,7 @@ public class NotificationFragment extends Fragment {
                             switch (userRole) {
                                 case "admin": {
                                     btnNewNotification.setVisibility(View.VISIBLE);
+                                    break;
                                 }
                             }
                             CustomProgressBar.getInstance().getDialog().dismiss();

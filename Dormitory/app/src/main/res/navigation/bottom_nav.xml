@@ -222,5 +222,34 @@
         android:id="@+id/issueFragment"
         android:name="com.group18.dormitory.IssueFragment"
         android:label="fragment_issue"
-        tools:layout="@layout/fragment_issue" />
+        tools:layout="@layout/fragment_issue" >
+        <action
+            android:id="@+id/action_issueFragment_to_issueNewFragment"
+            app:destination="@id/issueNewFragment" />
+        <action
+            android:id="@+id/action_issueFragment_to_issueDetailFragment"
+            app:destination="@id/issueDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/issueNewFragment"
+        android:name="com.group18.dormitory.IssueNewFragment"
+        android:label="fragment_issue_new"
+        tools:layout="@layout/fragment_issue_new" >
+        <action
+            android:id="@+id/action_issueNewFragment_to_issueFragment"
+            app:destination="@id/issueFragment"
+            app:popUpTo="@id/issueFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/issueDetailFragment"
+        android:name="com.group18.dormitory.IssueDetailFragment"
+        android:label="fragment_issue_detail"
+        tools:layout="@layout/fragment_issue_detail" >
+        <action
+            android:id="@+id/action_issueDetailFragment_to_issueFragment"
+            app:destination="@id/issueFragment"
+            app:popUpTo="@id/issueFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

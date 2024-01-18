@@ -74,6 +74,7 @@ public class HomeFragment extends Fragment {
                     switch (userRole) {
                         case "student": {
                             btnRegistration.setVisibility(View.GONE);
+                            break;
                         }
                         /*
                         case "manager": {

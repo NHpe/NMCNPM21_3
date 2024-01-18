@@ -10,9 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.group18.dormitory.Model.Issue;
+import com.group18.dormitory.Model.Room;
 import com.group18.dormitory.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.IssueViewHolder> {
 
@@ -20,6 +23,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.IssueViewHol
     private ArrayList<Issue> items;
     private View view;
     private IssueAdapter.OnItemClickListener onItemClickListener;
+    private final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
     public void setOnItemClickListener(IssueAdapter.OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }
@@ -29,18 +33,23 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.IssueViewHol
         this.items = items;
     }
 
+    public void setItems(ArrayList<Issue> items) {
+        this.items = items;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public IssueAdapter.IssueViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(context).inflate(R.layout.custom_notification_recycler_view, parent, false);
+        view = LayoutInflater.from(context).inflate(R.layout.custom_issue_list_recycler_view, parent, false);
         return new IssueViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull IssueAdapter.IssueViewHolder holder, int position) {
         holder.txtTitle.setText(items.get(position).getTitle());
-        holder.txtContent.setText(items.get(position).getMessage());
-        holder.txtDate.setText(items.get(position).getDate().toString());
+        holder.txtStatus.setText(!items.get(position).getStatus()?"Đang xử lý":"Đã xử lý");
+        holder.txtDate.setText(sdf.format(items.get(position).getDate()));
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +72,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.IssueViewHol
     public static class IssueViewHolder extends RecyclerView.ViewHolder{
 
         TextView txtTitle;
-        TextView txtContent;
+        TextView txtStatus;
         TextView txtDate;
         View container;
 
@@ -71,7 +80,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.IssueViewHol
             super(view);
             container = view.findViewById(R.id.container);
             txtTitle = view.findViewById(R.id.txtTitle);
-            txtContent = view.findViewById(R.id.txtContent);
+            txtStatus = view.findViewById(R.id.txtStatus);
             txtDate = view.findViewById(R.id.txtDate);
 
         }

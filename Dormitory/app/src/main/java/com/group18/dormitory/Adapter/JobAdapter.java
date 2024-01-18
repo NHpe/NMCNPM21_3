@@ -43,18 +43,6 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull JobAdapter.JobViewHolder holder, int position) {
-        holder.txtName.setText(items.get(position).getName());
-        holder.txtGender.setText(items.get(position).getGender());
-        String number = items.get(position).getStudentId().size() + "/" + items.get(position).getMaxNumber();
-        holder.txtNumber.setText(number);
-        holder.container.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(items.get(holder.getAdapterPosition()).getId());
-                }
-            }
-        });
     }
 
     @Override

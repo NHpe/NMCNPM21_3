@@ -4,21 +4,40 @@ import java.util.Date;
 
 public class Issue {
     private String id;
+    private String senderId;
     private String title;
     private String message;
     private Date date;
+    private Boolean status;
 
     public Issue() {
 
     }
 
-    public Issue(String title, String content) {
+    public Issue(String id, String senderId, String title, String message, Date date) {
+        this.id = id;
+        this.senderId = senderId;
         this.title = title;
-        this.message = content;
-        this.date = new java.util.Date();
-        this.id = String.valueOf(date);
+        this.message = message;
+        this.date = date;
+        this.status = false;
     }
 
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
     public String getId() {return id;}
 

@@ -205,6 +205,55 @@ public class DAOs {
         });
     }
 
+    public<T> void getIssueFromDB(String collection, Class<T> type, OnCompleteRetrieveDataListener listener) {
+        db.collection(collection).orderBy("date", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if(!querySnapshot.isEmpty()) {
+                        List<T> result = new ArrayList<>();
+                        for (DocumentSnapshot documentSnapshot :
+                                querySnapshot) {
+                            result.add(documentSnapshot.toObject(type));
+                        }
+                        listener.onComplete(result);
+
+                    }else {
+                        listener.onComplete(null);
+                    }
+                }
+
+            }
+        });
+    }
+
+    public<T> void getIssueWithSenderId(String collection, String senderId, Class<T> type, OnCompleteRetrieveDataListener listener) {
+        db.collection(collection)
+                .whereEqualTo("senderId", senderId)
+                .orderBy("date", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                System.out.println(task.getException() + "\n\n\n");
+                if(task.isSuccessful()) {
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if(!querySnapshot.isEmpty()) {
+                        List<T> result = new ArrayList<>();
+                        for (DocumentSnapshot documentSnapshot :
+                                querySnapshot) {
+                            result.add(documentSnapshot.toObject(type));
+                        }
+                        listener.onComplete(result);
+
+                    }else {
+                        listener.onComplete(null);
+                    }
+                }
+
+            }
+        });
+    }
+
     public<T> void getRoomWithSpecific(String collection, String gender, int maxNumber, boolean furniture, Class<T> type, OnCompleteRetrieveDataListener listener) {
         db.collection(collection)
                 .whereEqualTo("gender", gender)
@@ -230,6 +279,33 @@ public class DAOs {
             }
         });
     }
+
+    public<T> void getIssueWithSpecific(String collection, String pos, boolean status, Class<T> type, OnCompleteRetrieveDataListener listener) {
+        db.collection(collection)
+                .whereEqualTo("title", pos)
+                .whereEqualTo("status", status).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            if(!querySnapshot.isEmpty()) {
+                                List<T> result = new ArrayList<>();
+                                for (DocumentSnapshot documentSnapshot :
+                                        querySnapshot) {
+                                    result.add(documentSnapshot.toObject(type));
+                                }
+                                listener.onComplete(result);
+
+                            }else {
+                                listener.onComplete(null);
+                            }
+                        }
+
+                    }
+                });
+    }
+
+
 
     public void getRoomRegistrationId(String studentId, String roomId, OnCompleteRetrieveDataListener listener) {
         db.collection("RoomRegistrationInformation")

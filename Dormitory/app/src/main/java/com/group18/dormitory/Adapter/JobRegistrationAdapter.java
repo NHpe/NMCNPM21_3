@@ -43,69 +43,6 @@ public class JobRegistrationAdapter extends RecyclerView.Adapter<JobRegistration
 
     @Override
     public void onBindViewHolder(@NonNull JobRegistrationAdapter.JobRegistrationViewHolder holder, int position) {
-        String employeeId = items.get(position).getEmployeeId();
-        String JobId = items.get(position).getJobId();
-
-        DAOs.getInstance().retrieveDataFromDatabase("UserInformation", employeeId, UserInformation.class, new DAOs.OnCompleteRetrieveDataListener() {
-            @Override
-            public <T> void onComplete(List<T> list) {
-                UserInformation userInformation = (UserInformation) list.get(0);
-                DAOs.getInstance().retrieveDataFromDatabase("Job", Id, Job.class, new DAOs.OnCompleteRetrieveDataListener() {
-                    @Override
-                    public <T> void onComplete(List<T> list) {
-                        Job job = (Job) list.get(0);
-
-
-                    }
-                });
-
-            }
-        });
-
-        holder.btnAccept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DAOs.getInstance().retrieveDataFromDatabase("Room", roomId, Room.class, new DAOs.OnCompleteRetrieveDataListener() {
-                    @Override
-                    public <T> void onComplete(List<T> list) {
-                        Room room = (Room) list.get(0);
-                        room.getStudentId().add(studentId);
-                        DAOs.getInstance().addDataToDatabase("Room", roomId, room);
-                    }
-                });
-
-
-                DAOs.getInstance().getRoomRegistrationId(studentId, roomId, new DAOs.OnCompleteRetrieveDataListener() {
-                    @Override
-                    public <T> void onComplete(List<T> list) {
-                        String id = (String) list.get(0);
-                        DAOs.getInstance().deleteDocument("RoomRegistrationInformation", id);
-                        items.remove(holder.getAdapterPosition());
-                        notifyItemRemoved(holder.getAdapterPosition());
-                        notifyItemRangeChanged(holder.getAdapterPosition(),
-                                items.size() - holder.getAdapterPosition());
-                    }
-                });
-            }
-        });
-
-        holder.btnDecline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DAOs.getInstance().getRoomRegistrationId(studentId, roomId, new DAOs.OnCompleteRetrieveDataListener() {
-                    @Override
-                    public <T> void onComplete(List<T> list) {
-                        String id = (String) list.get(0);
-                        DAOs.getInstance().deleteDocument("RoomRegistrationInformation", id);
-                        items.remove(holder.getAdapterPosition());
-                        notifyItemRemoved(holder.getAdapterPosition());
-                        notifyItemRangeChanged(holder.getAdapterPosition(),
-                                items.size() - holder.getAdapterPosition());
-                    }
-                });
-
-            }
-        });
     }
 
     @Override
@@ -117,7 +54,7 @@ public class JobRegistrationAdapter extends RecyclerView.Adapter<JobRegistration
         void onItemClick(String id);
     }
 
-    public static class RoomRegistrationViewHolder extends RecyclerView.ViewHolder{
+    public static class JobRegistrationViewHolder extends RecyclerView.ViewHolder{
 
         TextView txtStudentName;
         TextView txtStudentGender;
@@ -128,7 +65,7 @@ public class JobRegistrationAdapter extends RecyclerView.Adapter<JobRegistration
         private ImageButton btnAccept;
         private ImageButton btnDecline;
 
-        public RoomRegistrationViewHolder(@NonNull View view) {
+        public JobRegistrationViewHolder(@NonNull View view) {
             super(view);
             container = view.findViewById(R.id.container);
             txtStudentName = view.findViewById(R.id.txtStudentName);

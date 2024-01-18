@@ -96,6 +96,7 @@ public class RoomInformationFragment extends Fragment {
                             switch (userRole) {
                                 case "admin": {
                                     btnRegistration.setVisibility(View.GONE);
+                                    break;
                                 }
                             }
                             CustomProgressBar.getInstance().getDialog().dismiss();

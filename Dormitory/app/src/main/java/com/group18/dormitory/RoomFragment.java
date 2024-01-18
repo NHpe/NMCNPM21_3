@@ -151,6 +151,7 @@ public class RoomFragment extends Fragment {
                             switch (userRole) {
                                 case "admin": {
                                     adminRole.setVisibility(View.VISIBLE);
+                                    break;
                                 }
                             }
                             CustomProgressBar.getInstance().getDialog().dismiss();
