@@ -58,8 +58,6 @@ public class SignInFragment extends Fragment {
                     DAOs.getInstance().signInWithEmailAndPassword(username, password, new DAOs.OnResultListener() {
                         @Override
                         public void onResult(boolean result) {
-                            container.setVisibility(View.VISIBLE);
-                            CustomProgressBar.getInstance().getDialog().dismiss();
                             if(result) {
                                 Toast.makeText(requireContext(), "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                                 //TODO do some work with FirebaseUser
@@ -69,6 +67,8 @@ public class SignInFragment extends Fragment {
                             }else{
                                 Toast.makeText(requireContext(), "Tài khoản không tồn tại", Toast.LENGTH_SHORT).show();
                             }
+                            container.setVisibility(View.VISIBLE);
+                            CustomProgressBar.getInstance().getDialog().dismiss();
                         }
                     });
                 }

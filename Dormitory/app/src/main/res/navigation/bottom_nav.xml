@@ -22,6 +22,12 @@
         <action
             android:id="@+id/action_homeFragment_to_issueFragment"
             app:destination="@id/issueFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_jobFragment"
+            app:destination="@id/jobFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_notificationDetailFragment"
+            app:destination="@id/notificationDetailFragment" />
     </fragment>
 
     <fragment
@@ -83,24 +89,11 @@
             app:popUpTo="@id/signUpFragment"
             app:popUpToInclusive="true" />
     </fragment>
-
-    <fragment
-        android:id="@+id/billFragment"
-        android:name="com.group18.dormitory.BillFragment"
-        android:label="fragment_bill"
-        tools:layout="@layout/fragment_bill" >
-        <action
-            android:id="@+id/action_billFragment_to_roomInformationFragment"
-            app:destination="@id/roomInformationFragment" />
-    </fragment>
     <fragment
         android:id="@+id/roomInformationFragment"
         android:name="com.group18.dormitory.RoomInformationFragment"
         android:label="fragment_room_information"
         tools:layout="@layout/fragment_room_information" >
-        <action
-            android:id="@+id/action_roomInformationFragment_to_billFragment"
-            app:destination="@id/billFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -169,6 +162,9 @@
         <action
             android:id="@+id/action_roomFragment_to_roomRegistrationFragment"
             app:destination="@id/roomRegistrationFragment" />
+        <action
+            android:id="@+id/action_roomFragment_to_roomMyFragment"
+            app:destination="@id/roomMyFragment" />
     </fragment>
     <fragment
         android:id="@+id/roomNewFragment"
@@ -251,5 +247,72 @@
             app:destination="@id/issueFragment"
             app:popUpTo="@id/issueFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/jobFragment"
+        android:name="com.group18.dormitory.JobFragment"
+        android:label="JobFragment"
+        tools:layout="@layout/fragment_job" >
+        <action
+            android:id="@+id/action_jobFragment_to_jobNewFragment"
+            app:destination="@id/jobNewFragment" />
+        <action
+            android:id="@+id/action_jobFragment_to_jobDetailFragment"
+            app:destination="@id/jobDetailFragment" />
+        <action
+            android:id="@+id/action_jobFragment_to_jobRegistrationFragment"
+            app:destination="@id/jobRegistrationFragment" />
+        <action
+            android:id="@+id/action_jobFragment_to_jobScheduleFragment"
+            app:destination="@id/jobScheduleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/jobNewFragment"
+        android:name="com.group18.dormitory.JobNewFragment"
+        android:label="fragment_job_new"
+        tools:layout="@layout/fragment_job_new" >
+        <action
+            android:id="@+id/action_jobNewFragment_to_jobFragment"
+            app:destination="@id/jobFragment"
+            app:popUpTo="@id/jobFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/jobDetailFragment"
+        android:name="com.group18.dormitory.JobDetailFragment"
+        android:label="fragment_job_detail"
+        tools:layout="@layout/fragment_job_detail" />
+    <fragment
+        android:id="@+id/jobRegistrationFragment"
+        android:name="com.group18.dormitory.JobRegistrationFragment"
+        android:label="JobRegistrationFragment"
+        tools:layout="@layout/fragment_job_registration" >
+        <action
+            android:id="@+id/action_jobRegistrationFragment_to_userInformationFragment"
+            app:destination="@id/userInformationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/jobScheduleFragment"
+        android:name="com.group18.dormitory.JobScheduleFragment"
+        android:label="fragment_job_schedule"
+        tools:layout="@layout/fragment_job_schedule" />
+    <fragment
+        android:id="@+id/roomMyFragment"
+        android:name="com.group18.dormitory.RoomMyFragment"
+        android:label="fragment_room_my"
+        tools:layout="@layout/fragment_room_my" >
+        <action
+            android:id="@+id/action_roomMyFragment_to_userInformationFragment"
+            app:destination="@id/userInformationFragment" />
+        <action
+            android:id="@+id/action_roomMyFragment_to_billFragment"
+            app:destination="@id/billFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/billFragment"
+        android:name="com.group18.dormitory.BillFragment"
+        android:label="fragment_bill"
+        tools:layout="@layout/fragment_bill" >
     </fragment>
 </navigation>

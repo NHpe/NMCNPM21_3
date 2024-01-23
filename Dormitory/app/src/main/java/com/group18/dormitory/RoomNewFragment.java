@@ -96,11 +96,14 @@ public class RoomNewFragment extends Fragment {
 
                     if(btn == btnEight) {
                         newRoom.setMaxNumber(8);
+                        newRoom.setCost(200000);
                     } else {
                         if(btn == btnFour) {
                             newRoom.setMaxNumber(4);
+                            newRoom.setCost(400000);
                         } else {
                             newRoom.setMaxNumber(2);
+                            newRoom.setCost(800000);
                         }
                     }
 

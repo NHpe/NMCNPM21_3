@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.group18.dormitory.Data.CustomProgressBar;
 import com.group18.dormitory.Model.DAOs;
 import com.group18.dormitory.Model.Room;
@@ -62,10 +63,10 @@ public class RoomInformationFragment extends Fragment {
     }
 
     private void initiate(View view) {
-        txtName = view.findViewById(R.id.txtName);
         txtGender = view.findViewById(R.id.txtGender);
         txtMaxNumber = view.findViewById(R.id.txtMaxNumber);
         txtCurrentNumber = view.findViewById(R.id.txtCurrentNumber);
+        txtName = view.findViewById(R.id.txtName);
         txtFurniture = view.findViewById(R.id.txtFurniture);
         txtCost = view.findViewById(R.id.txtCost);
         btnRegistration = view.findViewById(R.id.btnRegistration);
@@ -98,9 +99,34 @@ public class RoomInformationFragment extends Fragment {
                                     btnRegistration.setVisibility(View.GONE);
                                     break;
                                 }
+                                case "student": {
+                                    FirebaseFirestore.getInstance().collection("Room")
+                                            .whereArrayContains("studentId", userId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if(task.isSuccessful()) {
+                                                        if(task.getResult().size() != 0) {
+                                                            btnRegistration.setVisibility(View.GONE);
+                                                        }
+                                                    }
+                                                    FirebaseFirestore.getInstance().collection("RoomRegistrationInformation")
+                                                            .whereEqualTo("studentId", userId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                                    if(task.isSuccessful()) {
+                                                                        if(task.getResult().size() != 0) {
+                                                                            btnRegistration.setVisibility(View.GONE);
+                                                                        }
+                                                                    }
+                                                                    CustomProgressBar.getInstance().getDialog().dismiss();
+                                                                    container.setVisibility(View.VISIBLE);
+                                                                }
+                                                            });
+                                                }
+                                            });
+                                    break;
+                                }
                             }
-                            CustomProgressBar.getInstance().getDialog().dismiss();
-                            container.setVisibility(View.VISIBLE);
                         }
                     }
                 });
@@ -121,6 +147,7 @@ public class RoomInformationFragment extends Fragment {
                                 .setNegativeButton("Đóng", null)
                                 .setCancelable(false)
                                 .show();
+                        btnRegistration.setVisibility(View.GONE);
                     }
                 });
             }

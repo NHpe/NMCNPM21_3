@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:text="Danh sách đăng ký tài khoản"
+                android:text="Danh sách đăng ký phòng"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />

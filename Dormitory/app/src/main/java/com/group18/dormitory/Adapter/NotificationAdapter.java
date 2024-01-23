@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.group18.dormitory.Model.Notification;
 import com.group18.dormitory.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder> {
 
@@ -21,6 +23,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     private ArrayList<Notification> items;
     private View view;
     private NotificationAdapter.OnItemClickListener onItemClickListener;
+    private final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy", Locale.getDefault());
     public void setOnItemClickListener(NotificationAdapter.OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }
@@ -41,7 +44,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(@NonNull NotificationAdapter.NotificationViewHolder holder, int position) {
         holder.txtTitle.setText(items.get(position).getTitle());
         holder.txtContent.setText(items.get(position).getContent());
-        holder.txtDate.setText(items.get(position).getDate().toString());
+        holder.txtDate.setText(sdf.format(items.get(position).getDate()));
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -73,6 +73,10 @@ public class DAOs {
         db.collection(collection).document(id).set(data);
     }
 
+    public void addDataToDatabase(String collection, Object data) {
+        db.collection(collection).add(data);
+    }
+
     public void addDataToDatabase(String collection, String id, Object data, OnResultListener l) {
         db.collection(collection).document(id).set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

@@ -62,8 +62,7 @@ public class FriendFindFragment extends Fragment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    String text = String.valueOf(searchBar.getText());
-                    text.toLowerCase();
+                    String text = String.valueOf(searchBar.getText()).toLowerCase();
                     String userId = DAOs.getInstance().getCurrentUserId();
                     container.setVisibility(View.GONE);
                     CustomProgressBar.getInstance().show(requireContext());

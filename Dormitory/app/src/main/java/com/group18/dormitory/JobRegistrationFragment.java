@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 
 import com.group18.dormitory.Adapter.RegistrationAdapter;
 import com.group18.dormitory.Adapter.JobRegistrationAdapter;
+import com.group18.dormitory.Data.CustomProgressBar;
 import com.group18.dormitory.Model.DAOs;
 import com.group18.dormitory.Model.JobRegistrationInformation;
 
@@ -24,6 +25,7 @@ import java.util.List;
 public class JobRegistrationFragment extends Fragment {
     private ImageButton btnCallBack;
     private RecyclerView recyclerView;
+    private View container;
 
     public JobRegistrationFragment() {
         // Required empty public constructor
@@ -43,12 +45,16 @@ public class JobRegistrationFragment extends Fragment {
     }
 
     private void initiate(View view) {
+        btnCallBack = view.findViewById(R.id.btnCallBack);
         recyclerView = view.findViewById(R.id.listView);
+        container = view.findViewById(R.id.container);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(new RegistrationAdapter(requireContext(), new ArrayList<>()));
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        container.setVisibility(View.GONE);
+        CustomProgressBar.getInstance().show(requireContext());
 
-        DAOs.getInstance().retrieveDataFromDatabase("JobRegistrationInformation", JobRegistrationInformation.class, new DAOs.OnCompleteRetrieveDataListener() {
+        DAOs.getInstance().retrieveDataFromDatabase("JobRegistration", JobRegistrationInformation.class, new DAOs.OnCompleteRetrieveDataListener() {
             @Override
             public <T> void onComplete(List<T> list) {
                 ArrayList<JobRegistrationInformation> items = (ArrayList<JobRegistrationInformation>) list;
@@ -56,13 +62,23 @@ public class JobRegistrationFragment extends Fragment {
                     items = new ArrayList<>();
                 }
                 JobRegistrationAdapter adapter = new JobRegistrationAdapter(requireContext(), items);
+                adapter.setOnItemClickListener(new JobRegistrationAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(String registerId) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("ID", registerId);
+                        NavController navController = Navigation.findNavController(view);
+                        navController.navigate(R.id.action_jobRegistrationFragment_to_userInformationFragment, bundle);
+                    }
+                });
                 recyclerView.setAdapter(adapter);
+                CustomProgressBar.getInstance().getDialog().dismiss();
+                container.setVisibility(View.VISIBLE);
             }
         });
 
 
 
-        btnCallBack = view.findViewById(R.id.btnCallBack);
         btnCallBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

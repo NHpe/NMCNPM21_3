@@ -119,6 +119,7 @@ public class IssueFragment extends Fragment {
                 if(task.isSuccessful()) {
                     String userRole = task.getResult().get("role").toString();
                     switch (userRole) {
+                        case "employee":
                         case "student": {
                             btnNewIssue.setVisibility(View.VISIBLE);
                             filter.setVisibility(View.GONE);

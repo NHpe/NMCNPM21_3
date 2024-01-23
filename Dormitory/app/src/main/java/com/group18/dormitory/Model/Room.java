@@ -15,7 +15,7 @@ public class Room {
     private int maxNumber;
     private String gender;
     private boolean furniture;
-    private float cost;
+    private long cost;
     private ArrayList<String> studentId;
 
     public ArrayList<String> getStudentId() {
@@ -26,11 +26,11 @@ public class Room {
         this.studentId = studentId;
     }
 
-    public float getCost() {
+    public long getCost() {
         return cost;
     }
 
-    public void setCost(float cost) {
+    public void setCost(long cost) {
         this.cost = cost;
     }
 

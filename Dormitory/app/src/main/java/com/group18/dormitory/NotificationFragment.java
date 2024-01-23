@@ -78,8 +78,6 @@ public class NotificationFragment extends Fragment {
                         bundle.putString("NotificationId", id);
                         NavController navController = Navigation.findNavController(view);
                         navController.navigate(R.id.action_notificationFragment_to_notificationDetailFragment, bundle);
-
-
                     }
                 });
 

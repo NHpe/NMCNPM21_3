@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.group18.dormitory.Model.Bill;
 import com.group18.dormitory.Model.DAOs;
 import com.group18.dormitory.Model.Room;
 import com.group18.dormitory.Model.RoomRegistrationInformation;
@@ -74,6 +75,8 @@ public class RoomRegistrationAdapter extends RecyclerView.Adapter<RoomRegistrati
                         Room room = (Room) list.get(0);
                         room.getStudentId().add(studentId);
                         DAOs.getInstance().addDataToDatabase("Room", roomId, room);
+                        Bill bill = new Bill(roomId, studentId);
+                        DAOs.getInstance().addDataToDatabase("Bill", bill.getBillId(), bill);
                     }
                 });
 

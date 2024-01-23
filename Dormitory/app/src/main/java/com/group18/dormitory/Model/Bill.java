@@ -8,63 +8,50 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Date;
 
 public class Bill {
-    private static Bill instance;
-    private FirebaseFirestore db = DAOs.getInstance().getDb();
-    private String[] userID;
-    private String roomID;
+    private String billId;
+    private String roomId;
+    private String studentId;
     private Date dateStart;
-    private Date dateEnd;
-    private float electric;
-    private float water;
-    private float service;
+
+    public Bill(String roomId, String studentId) {
+        this.roomId = roomId;
+        this.studentId = studentId;
+        this.dateStart = new Date();
+        this.billId = this.dateStart.toString();
+    }
 
     public Bill() {
-
     }
 
-    public static Bill getInstance() {
-        if(instance == null) {
-            instance = new Bill();
-        }
-        return instance;
+    public String getBillId() {
+        return billId;
     }
 
-    public String[] getUserID() {return userID;}
+    public void setBillId(String billId) {
+        this.billId = billId;
+    }
 
-    public void setUserID(String[] userID) {this.userID = userID;}
+    public String getRoomId() {
+        return roomId;
+    }
 
-    public String getRoomID() {return  roomID;}
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
+    }
 
-    public void setRoomID(String roomID) {this.roomID = roomID;}
+    public String getStudentId() {
+        return studentId;
+    }
 
-    public Date getDateStart() {return dateStart;}
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
 
-    public void setDateStart(Date date) {this.dateStart = date;}
+    public Date getDateStart() {
+        return dateStart;
+    }
 
-    public Date getDateEnd() {return dateEnd;}
-
-    public void setDateEnd(Date date) {this.dateEnd = date;}
-
-    public float getElectric() {return electric;}
-
-    public void setElectric(float electric) {this.electric = electric;}
-
-    public float getWater() {return water;}
-
-    public void setWater(float water) {this.water = water;}
-
-    public float getService() {return service;}
-
-    public void setService(float service) {this.service = service;}
-
-    public Bill getBill() {
-        DocumentReference documentReference = db.collection("Bill").document("0");
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                instance = documentSnapshot.toObject(Bill.class);
-            }
-        });
-        return instance;
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
     }
 }

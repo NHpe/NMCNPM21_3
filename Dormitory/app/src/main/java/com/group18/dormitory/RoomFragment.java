@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.group18.dormitory.Adapter.NotificationAdapter;
 import com.group18.dormitory.Adapter.RoomAdapter;
 import com.group18.dormitory.Data.CustomProgressBar;
@@ -59,6 +60,7 @@ public class RoomFragment extends Fragment {
     private RadioGroup furnitureGroup;
     private RadioButton btnYes;
     private RadioButton btnNo;
+    private View btnMyRoom;
 
     public RoomFragment() {
         // Required empty public constructor
@@ -87,6 +89,7 @@ public class RoomFragment extends Fragment {
         isDropDown = false;
         btnFind = view.findViewById(R.id.btnFind);
         adminRole = view.findViewById(R.id.adminRole);
+        btnMyRoom = view.findViewById(R.id.btnMyRoom);
 
         btnAll = view.findViewById(R.id.btnAll);
         genderGroup = view.findViewById(R.id.genderGroup);
@@ -150,12 +153,36 @@ public class RoomFragment extends Fragment {
                             String userRole = task.getResult().get("role").toString();
                             switch (userRole) {
                                 case "admin": {
-                                    adminRole.setVisibility(View.VISIBLE);
+                                    container.setVisibility(View.VISIBLE);
                                     break;
                                 }
+                                case "student": {
+                                    container.setVisibility(View.VISIBLE);
+                                    FirebaseFirestore.getInstance().collection("Room")
+                                            .whereArrayContains("studentId", userId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    if(task.isSuccessful()) {
+                                                        if (task.getResult().size()!=0) {
+                                                            btnMyRoom.setVisibility(View.VISIBLE);
+                                                            btnMyRoom.setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View v) {
+                                                                    Bundle bundle = new Bundle();
+                                                                    bundle.putString("RoomId", task.getResult()
+                                                                            .getDocuments().get(0).toObject(Room.class).getId());
+                                                                    NavController navController = Navigation.findNavController(v);
+                                                                    navController.navigate(R.id.action_roomFragment_to_roomMyFragment, bundle);
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                }
                             }
+                            adminRole.setVisibility(View.VISIBLE);
                             CustomProgressBar.getInstance().getDialog().dismiss();
-                            container.setVisibility(View.VISIBLE);
                         }
                     }
                 });
